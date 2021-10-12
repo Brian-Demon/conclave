@@ -27,6 +27,9 @@ gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-google-oauth2'
 
+gem 'simple_form'
+gem 'simple_form-tailwind'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
