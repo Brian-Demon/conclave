@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_12_220309) do
+ActiveRecord::Schema.define(version: 2021_10_12_223143) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_10_12_220309) do
 
   create_table "discussions", force: :cascade do |t|
     t.string "title"
-    t.string "body"
+    t.text "body"
     t.integer "user_id", null: false
     t.integer "category_id", null: false
     t.boolean "pinned"
