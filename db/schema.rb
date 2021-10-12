@@ -10,7 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_12_200209) do
+ActiveRecord::Schema.define(version: 2021_10_12_211650) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "body"
+    t.integer "user_id", null: false
+    t.integer "discussion_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["discussion_id"], name: "index_comments_on_discussion_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "discussions", force: :cascade do |t|
+    t.string "title"
+    t.string "body"
+    t.integer "user_id", null: false
+    t.integer "category_id", null: false
+    t.boolean "pinned"
+    t.boolean "locked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_discussions_on_category_id"
+    t.index ["user_id"], name: "index_discussions_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "login"
@@ -20,4 +50,8 @@ ActiveRecord::Schema.define(version: 2021_10_12_200209) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "comments", "discussions"
+  add_foreign_key "comments", "users"
+  add_foreign_key "discussions", "categories"
+  add_foreign_key "discussions", "users"
 end
