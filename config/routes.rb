@@ -7,4 +7,7 @@ Rails.application.routes.draw do
   # LOGIN / LOGOUT
   get "/auth/google_oauth2/callback" => "sessions#create"
   delete '/logout', to: 'sessions#destroy', as: :logout
+
+  # CATEGORY
+  resources :categories
 end
