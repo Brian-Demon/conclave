@@ -1,0 +1,9 @@
+<div class="flex justify-end">
+  <div class="border rounded mx-4 bg-white">
+    <% if current_user %>
+      <%= button_to "Logout", logout_path, method: :delete %>
+    <% else %>
+      <%= button_to "Login", "/auth/google_oauth2" %>
+    <% end %>
+  </div>
+</div>
