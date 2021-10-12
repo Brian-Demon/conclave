@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-xl font-bold"><%= link_to(@category.name, @category) %> > <%= link_to(@discussion.title, [@category, @discussion]) %></h1>
+
+<div class="grid grid-cols-6 border rounded m-4 p-4">
+  <div class="border-r-2 mx-4">
+    <div><%= @discussion.user.login %></div>
+    <div><%= @discussion.created_at %></div>
+  </div>
+  <div class="col-span-5"><%= @discussion.body %></div>
+</div>

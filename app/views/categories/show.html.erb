@@ -1,6 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<%= @category.name %>
+<div class="grid grid-cols-6 border rounded m-4 p-4">
+  <div class="col-span-5">
+    <h1 class="text-xl font-bold"><%= link_to(@category.name, @category) %></h1>
+    <div><%= @category.description %></div>
+  </div>
+</div>
+
+<%= link_to "Create Discussion", new_category_discussion_path(@category) %>
+
+<% @category.discussions.each do |discussion| %>
+<div class="grid grid-cols-6 border rounded m-4 p-4">
+  <div class="col-span-5">
+    <h1 class="text-lg font-bold"><%= link_to(discussion.title, [@category, discussion]) %></h1>
+  </div>
+</div>
+<% end %>
+
 
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
