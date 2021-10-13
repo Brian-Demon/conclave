@@ -2,10 +2,12 @@
 
 <h1 class="text-xl font-bold"><%= link_to(@category.name, @category) %> > <%= link_to(@discussion.title, [@category, @discussion]) %></h1>
 
-<div class="grid grid-cols-6 border rounded m-4 p-4">
-  <div class="border-r-2 mx-4">
+<div class="grid grid-cols-6 border rounded m-4 p-4 border-gray-500">
+  <div class="border-r-2 mx-4 border-gray-500">
+    <div><%= user_avatar(User.find(@discussion.user.id), width: 64) %></div>
     <div><%= @discussion.user.login %></div>
-    <div><%= @discussion.created_at %></div>
+    <div>Posts: <%= @discussion.user.post_count %></div>
+    <div>Posted on <%= @discussion.created_at.strftime("%d %b %y %H:%M %Z") %></div>
   </div>
   <div class="col-span-5"><%= @discussion.body %></div>
 </div>
