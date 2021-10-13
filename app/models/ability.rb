@@ -36,6 +36,7 @@ class Ability
 
     return unless user.present?
 
+    can :create, Discussion, user: user
     can :delete, Discussion, user: user
     can :update, Discussion, user: user
 
