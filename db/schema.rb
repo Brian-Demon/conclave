@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_184330) do
+ActiveRecord::Schema.define(version: 2021_10_13_195222) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_10_13_184330) do
     t.integer "discussion_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "formatted_body"
     t.index ["discussion_id"], name: "index_comments_on_discussion_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 2021_10_13_184330) do
     t.boolean "locked"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "formatted_body"
     t.index ["category_id"], name: "index_discussions_on_category_id"
     t.index ["user_id"], name: "index_discussions_on_user_id"
   end
