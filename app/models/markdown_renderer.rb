@@ -1,4 +1,11 @@
 class MarkdownRenderer
+  class CodeRay < Redcarpet::Render::HTML
+    def block_code(code, language)
+      language ||= :plaintext
+      ::CodeRay.scan(code, language).div
+    end
+  end
+
   def self.render(content)
     renderer = self.new
     renderer.render(content)
@@ -7,7 +14,7 @@ class MarkdownRenderer
   attr_reader :renderer, :markdown
 
   def initialize
-    @renderer = Redcarpet::Render::HTML.new(renderer_options)
+    @renderer = CodeRay.new(renderer_options)
     @markdown = Redcarpet::Markdown.new(renderer, markdown_options)
   end
 

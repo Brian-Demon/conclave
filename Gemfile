@@ -27,12 +27,15 @@ gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-google-oauth2'
 
-#simple form
+# Form Formatting
 gem 'simple_form'
 gem 'simple_form-tailwind'
 
-#red carpet
+# Markdown Formatting
 gem 'redcarpet'
+
+# Syntax Highlighting
+gem 'coderay'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
