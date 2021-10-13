@@ -1,5 +1,6 @@
 class DiscussionsController < ApplicationController
   before_action :set_category
+  
   def show
     @discussion = Discussion.find(params[:id])
   end
@@ -13,7 +14,7 @@ class DiscussionsController < ApplicationController
     @discussion.user = current_user
     
     respond_to do |format|
-      if @discussion.save
+      if can?(:create, @discussion) && @discussion.save
         format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }

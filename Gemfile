@@ -37,6 +37,9 @@ gem 'redcarpet'
 # Syntax Highlighting
 gem 'coderay'
 
+# Authorization
+gem 'cancancan'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @category = @discussion.category
 
     respond_to do |format|
-      if @comment.save
+      if can?(:create, @comment) && @comment.save
         format.html { redirect_to [@category, @discussion], notice: "Comment posted!" }
       else
         format.html { render "discussions/show", error: "Comment could not be posted.", status: :unprocessable_entity }
