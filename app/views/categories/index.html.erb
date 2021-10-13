@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Categories</h1>
+
+<% @categories.each do |category| %>
+  <div class="grid grid-cols-6 border rounded m-4 p-4">
+    <div class="col-span-5">
+      <h1 class="text-xl font-bold"><%= link_to(category.name, category) %></h1>
+      <div><%= category.description %></div>
+    </div>
+    <div class="admin-options">
+      <%= link_to 'Edit', edit_category_path(category) %> | <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+<% end %>
+
+<%= link_to 'New Category', new_category_path %>

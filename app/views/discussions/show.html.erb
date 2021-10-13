@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="text-xl font-bold"><%= link_to(@category.name, @category) %> > <%= link_to(@discussion.title, [@category, @discussion]) %></h1>
+<%= render "shared/show_postable", postable: @discussion %>
+<%= render partial: "shared/show_postable", collection: @discussion.comments, as: :postable %>
+<div class="grid m-4 p-4 border border-gray-500">
+  <h3 class="text-lg font-bold">Write a Comment</h3>
+  <%= render "comments/form", discussion: @discussion, comment: @discussion.comments.new %>
+</div>
