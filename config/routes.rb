@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :discussions
   end
 
+  # DISCUSSION
+  resources :discussions, only: :destroy
+
   # COMMENT
   resources :comments, only: [:create, :destroy, :edit, :update] do 
     post :preview, on: :collection

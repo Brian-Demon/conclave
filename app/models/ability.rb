@@ -39,7 +39,7 @@ class Ability
     can :delete, Discussion, user: user
     can :update, Discussion, user: user
 
-    can :write, Comment, discussion: { locked: false }
+    can :create, Comment, discussion: { locked: false }
     can :update, Comment, user: user
     can :delete, Comment, user: user
   end
