@@ -23,6 +23,11 @@ class CommentsController < ApplicationController
   def update
   end
 
+  def preview
+    markdown = MarkdownRenderer.render(params["content"])
+    render json: { preview: markdown }
+  end
+
   private
 
   def comment_params

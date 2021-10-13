@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   end
 
   # COMMENT
-  resources :comments, only: [:create, :destroy, :edit, :update]
+  resources :comments, only: [:create, :destroy, :edit, :update] do 
+    post :preview, on: :collection
+  end
 end
