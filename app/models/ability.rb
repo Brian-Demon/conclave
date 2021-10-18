@@ -33,6 +33,7 @@ class Ability
 
     can :read, Discussion
     can :read, Comment
+    can :read, Category
 
     return unless user.present?
 
