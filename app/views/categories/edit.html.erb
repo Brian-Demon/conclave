@@ -4,7 +4,8 @@
   <%= render 'form', category: @category %>
 </div>
 
-<div class="mx-4 pt-4">
-  <%= link_to 'Show', @category %> |
-  <%= link_to 'Back', categories_path %>
+
+<div class="flex justify-self-start">
+  <%= button_to 'Show', @category, method: :get, class: "mx-1 p-1 w-16 border rounded cursor-pointer bg-green-500 hover:bg-green-600 text-white" %>
+  <%= button_to 'Back', categories_path, method: :get, class: "mx-1 p-1 w-16 border rounded cursor-pointer bg-blue-500 hover:bg-blue-600 text-white" %>
 </div>

@@ -2,12 +2,16 @@
   <%= render "shared/user_info", postable: postable %>
   <div class="col-span-5">
     <div class="grid grid-cols-6 content-center items-center border-b-2"> 
-      <div class="col-span-5">
+      <div class="col-span-5 mx-1">
         Posted on <%= postable.created_at.strftime("%d %b %y %H:%M %Z") %>
       </div>
       <div class="justify-self-end">
         <% if can? :delete, postable %>
-          <%= link_to "Delete", postable, method: :delete, data: { confirm: "Are you sure you want to delete?"} %>
+          <%= button_to "Delete",
+            postable,
+            method: :delete,
+            data: { confirm: "Are you sure you want to delete?"},
+            class: "border rounded mx-1 bg-red-500 hover:bg-red-700 text-white hover:bg-red-700 cursor-pointer p-1" %>
         <% end %>
       </div>
     </div>
