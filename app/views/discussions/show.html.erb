@@ -5,16 +5,18 @@
 </h1>
 <%= render "shared/show_postable", postable: @discussion %>
 <%= render partial: "shared/show_postable", collection: @discussion.comments, as: :postable %>
-<div class="grid m-4 p-4 border border-gray-500">
-  <h3 class="text-lg font-bold">Write a Comment</h3>
-  <ul class="flex justify-left items-left mt-4">
-    <li class="cursor-pointer border b-6 text-gray-500 p-2 active bg-gray-200" id="comment-form-toggle">Write</li>
-    <li class="cursor-pointer border b-6 text-gray-500 p-2 bg-gray-200" id="comment-preview-toggle">Preview</li>
-  </ul>
-  <div class="border b-2 p-4 comment-pane">
-    <div class="comment-pane-content bg-white" id="comment-form">
-      <%= render "comments/form", discussion: @discussion, comment: @discussion.comments.new %>
+<% if can? :create, @discussion.comments.new %>
+  <div class="grid m-4 p-4 border border-gray-500">
+    <h3 class="text-lg font-bold">Write a Comment</h3>
+    <ul class="flex justify-left items-left mt-4">
+      <li class="cursor-pointer border b-6 text-gray-500 p-2 active bg-gray-200" id="comment-form-toggle">Write</li>
+      <li class="cursor-pointer border b-6 text-gray-500 p-2 bg-gray-200" id="comment-preview-toggle">Preview</li>
+    </ul>
+    <div class="border b-2 p-4 comment-pane">
+      <div class="comment-pane-content bg-white" id="comment-form">
+        <%= render "comments/form", discussion: @discussion, comment: @discussion.comments.new %>
+      </div>
+      <div class="comment-pane-content bg-white" id="comment-preview"></div>
     </div>
-    <div class="comment-pane-content bg-white" id="comment-preview"></div>
   </div>
-</div>
+<% end %>
