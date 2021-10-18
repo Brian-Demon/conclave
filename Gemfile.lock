@@ -181,6 +181,7 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.5.1)
     regexp_parser (2.1.1)
+    rexml (3.2.5)
     ruby2_keywords (0.0.4)
     rubyzip (2.3.2)
     sass-rails (6.0.0)
@@ -259,6 +260,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.1)
   redcarpet
+  rexml
   sass-rails (>= 6)
   selenium-webdriver
   simple_form
