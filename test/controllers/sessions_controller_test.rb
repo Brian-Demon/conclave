@@ -2,12 +2,12 @@ require "test_helper"
 
 class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "should get create" do
-    get sessions_create_url
-    assert_response :success
+    get "/auth/google_oauth2/callback"
+    assert_redirected_to "http://www.example.com/auth/failure?message=csrf_detected&strategy=google_oauth2"
   end
 
   test "should get destroy" do
-    get sessions_destroy_url
-    assert_response :success
+    delete logout_url
+    assert_redirected_to root_url
   end
 end

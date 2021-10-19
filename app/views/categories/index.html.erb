@@ -8,10 +8,21 @@
       <h1 class="text-xl font-bold"><%= link_to(category.name, category) %></h1>
       <div><%= category.description %></div>
     </div>
-    <div class="admin-options">
-      <%= link_to 'Edit', edit_category_path(category) %> | <%= link_to 'Destroy', category, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <div class="admin-options flex justify-end">
+      <% if can? :update, category %>
+        <%= button_to 'Edit', edit_category_path(category),
+          class: "mx-1 p-1 w-16 border rounded cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white"
+        %>
+      <% end %>
+      <% if can? :delete, category %>
+        <%= button_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' },
+          class: "mx-1 w-16 p-1 border rounded cursor-pointer bg-red-500 hover:bg-red-600 text-white"
+        %>
+      <% end %>
     </div>
   </div>
 <% end %>
 
-<%= link_to 'New Category', new_category_path %>
+<% if can? :create, Category.new %>
+  <%= button_to 'New Category', new_category_path, method: :get, class: "mx-1 w-28 p-2 border rounded cursor-pointer bg-blue-500 hover:bg-blue-600 text-white" %>
+<% end %>

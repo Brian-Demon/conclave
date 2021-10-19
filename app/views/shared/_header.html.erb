@@ -1,9 +1,9 @@
 <div class="flex justify-end">
-  <div class="border rounded mx-4 bg-white">
+  <div>
     <% if current_user %>
-      <%= button_to "Logout", logout_path, method: :delete %>
+      <%= button_to "Logout", logout_path, method: :delete, class: "cursor-pointer border rounded mx-4 p-1 w-16 bg-whit hover:bg-gray-300" %>
     <% else %>
-      <%= button_to "Login", "/auth/google_oauth2" %>
+      <%= button_to "Login", "/auth/google_oauth2", method: :post, class: "cursor-pointer border rounded mx-4 p-1 w-16 bg-whit hover:bg-gray-300" %>
     <% end %>
   </div>
 </div>

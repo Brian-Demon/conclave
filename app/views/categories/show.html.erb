@@ -1,9 +1,18 @@
 <p id="notice"><%= notice %></p>
 
+<h1 class="text-xl font-bold">
+  <%= page_link_tree(@category, @discussion) %>
+</h1>
+
 <div class="grid grid-cols-6 border rounded m-4 p-4">
   <div class="col-span-5">
     <h1 class="text-xl font-bold"><%= link_to(@category.name, @category) %></h1>
     <div><%= @category.description %></div>
+  </div>
+  <div class="flex justify-self-end">
+    <% if can? :update, @category %>
+      <%= button_to 'Edit', edit_category_path(@category), method: :get, class: "mx-1 p-1 w-16 border rounded cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white" %>
+    <% end %>
   </div>
 </div>
 
@@ -16,7 +25,3 @@
   </div>
 </div>
 <% end %>
-
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
