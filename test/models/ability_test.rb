@@ -13,10 +13,6 @@ class AbilityTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:read, @category)
   end
 
-  test "unauthenticated guest can read all Category" do
-    assert Ability.new(nil).can?(:read, @category)
-  end
-
   test "authenticated user can read all Discussions" do
     assert Ability.new(@user).can?(:read, @discussion)
   end
@@ -29,14 +25,6 @@ class AbilityTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:create, @discussion)
   end
 
-  test "unauthenticated guest can read all Discussions" do
-    assert Ability.new(nil).can?(:read, @discussion)
-  end
-
-  test "unauthenticated guest cannot create a Discussion" do
-    refute Ability.new(nil).can?(:create, @discussion)
-  end
-
   test "authenticated user can delete their own Discussion" do
     assert Ability.new(@user).can?(:delete, @discussion)
   end
@@ -45,16 +33,8 @@ class AbilityTest < ActiveSupport::TestCase
     refute Ability.new(@user_2).can?(:delete, @discussion)
   end
 
-  test "unauthenticated guest cannot delete a Discussion made by someone else" do
-    refute Ability.new(nil).can?(:delete, @discussion)
-  end
-
   test "authenticated user can update their own Discussion" do
     assert Ability.new(@user).can?(:update, @discussion)
-  end
-
-  test "unauthenticated guest cannot update a Discussion" do
-    refute Ability.new(nil).can?(:update, @discussion)
   end
 
   test "authenticated user cannot update a Discussion made by someone else" do
@@ -65,10 +45,6 @@ class AbilityTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:update, @comment)
   end
 
-  test "unauthenticated guest cannot update a Comment" do
-    refute Ability.new(nil).can?(:update, @comment)
-  end
-
   test "authenticated user cannot update a Comment made by someone else" do
     refute Ability.new(@user_2).can?(:update, @comment)
   end
@@ -77,16 +53,8 @@ class AbilityTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:read, @comment)
   end
 
-  test "unauthenticated guest can read all Comments" do
-    assert Ability.new(nil).can?(:read, @comment)
-  end
-
   test "authenticated user can create a Comment" do
     assert Ability.new(@user).can?(:create, @comment)
-  end
-
-  test "unauthenticated guest cannot create a Comment" do
-    refute Ability.new(nil).can?(:create, @comment)
   end
 
   test "authenticated user cannot create a Comment on a locked discussion" do
@@ -101,9 +69,5 @@ class AbilityTest < ActiveSupport::TestCase
 
   test "authenticated user cannot delete a Comment made by someone else" do
     refute Ability.new(@user_2).can?(:delete, @comment)
-  end
-
-  test "unauthenticated guest cannot delete a Comment" do
-    refute Ability.new(nil).can?(:delete, @comment)
   end
 end

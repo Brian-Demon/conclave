@@ -30,12 +30,18 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-
     can :read, Discussion
     can :read, Comment
     can :read, Category
 
     return unless user.present?
+
+    if user.auth_role == "banned"
+      cannot :read, Discussion
+      cannot :read, Category
+      cannot :read, Comment
+      return 
+    end
 
     can :create, Discussion, user: user
     can :delete, Discussion, user: user
