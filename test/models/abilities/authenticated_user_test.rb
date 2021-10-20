@@ -12,6 +12,14 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:read, @category)
   end
 
+  test "cannot update a Category" do
+    refute Ability.new(@user).can?(:update, @category)
+  end
+
+  test "cannot delete a Category" do
+    refute Ability.new(@user).can?(:delete, @category)
+  end
+
   test "can read all Discussions" do
     assert Ability.new(@user).can?(:read, @discussion)
   end
