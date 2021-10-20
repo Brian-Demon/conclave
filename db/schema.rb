@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_231400) do
+ActiveRecord::Schema.define(version: 2021_10_19_224444) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_10_13_231400) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "image"
+    t.string "auth_role"
   end
 
   add_foreign_key "comments", "discussions"
