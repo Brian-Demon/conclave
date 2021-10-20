@@ -50,5 +50,16 @@ class Ability
     can :create, Comment, discussion: { locked: false }
     can :update, Comment, user: user
     can :delete, Comment, user: user
+
+    if user.auth_role == "admin"
+      can :update, Category
+      can :delete, Category
+      can :create, Discussion
+      can :delete, Discussion
+      can :update, Discussion
+      can :update, Comment
+      can :delete, Comment
+      can :create, Comment
+    end
   end
 end
