@@ -4,13 +4,13 @@ class Ability::GuestTest < ActiveSupport::TestCase
   def setup
     @category = Category.new
     @user = User.new
-    @user_2 = nil
+    @user_2 = User.new
     @discussion = @category.discussions.build(user: @user)
     @comment = @discussion.comments.build(user: @user, body: "This is a test")
   end
 
   test "can read all Category" do
-    assert Ability.new(@user_2).can?(:read, @category)
+    assert Ability.new(nil).can?(:read, @category)
   end
 
   test "can read all Discussions" do
@@ -43,5 +43,9 @@ class Ability::GuestTest < ActiveSupport::TestCase
 
   test "cannot delete a Comment" do
     refute Ability.new(nil).can?(:delete, @comment)
+  end
+
+  test "cannot update role for anyone" do
+    refute Ability.new(nil).can?(:update_roles, @user_2)
   end
 end

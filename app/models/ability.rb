@@ -60,6 +60,7 @@ class Ability
       can :update, Comment
       can :delete, Comment
       can :create, Comment
+      can :update_roles, User
     end
   end
 end

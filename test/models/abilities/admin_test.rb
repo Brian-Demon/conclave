@@ -80,4 +80,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
   test "can delete a Comment made by someone else" do
     assert Ability.new(@user).can?(:delete, @comment2)
   end
+
+  test "can change auth_role of another user" do
+    assert Ability.new(@user).can?(:update_roles, @user_2)
+  end
 end
