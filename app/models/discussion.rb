@@ -12,4 +12,12 @@ class Discussion < ApplicationRecord
   def assign_formatted_body
     assign_attributes(formatted_body: MarkdownRenderer.render(body))
   end
+
+  def lock
+    update(locked: true)
+  end
+
+  def unlock
+    update(locked: false)
+  end
 end
