@@ -36,4 +36,20 @@ class DiscussionTest < ActiveSupport::TestCase
     refute discussion.valid?
     assert_not_nil discussion.errors[:body], 'no validation error for body present'
   end
+
+  test "lock sets locked to true" do
+    discussion = Discussion.new(category: @category, user: @user, body: nil)
+    refute discussion.locked
+
+    discussion.lock
+    assert discussion.locked
+  end
+
+  test "unlock sets locked to false" do
+    discussion = Discussion.new(category: @category, user: @user, body: nil, locked: true)
+    assert discussion.locked
+
+    discussion.unlock
+    refute discussion.locked
+  end
 end

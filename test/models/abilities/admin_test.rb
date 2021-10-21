@@ -84,4 +84,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
   test "can change auth_role of another user" do
     assert Ability.new(@user).can?(:update_roles, @user_2)
   end
+
+  test "can lock a Discussion" do
+    assert Ability.new(@user).can?(:lock, @discussion)
+  end
 end
