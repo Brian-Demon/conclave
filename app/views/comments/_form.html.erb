@@ -1,5 +1,5 @@
 <%= simple_form_for(comment) do |form| %>
-  <%= form.input :body %>
+  <%= form.input :body, input_html: { class: "previewable-body" } %>
   <%= form.input :discussion_id, as: "hidden" %>
   <%= form.button :submit, "Submit", class: "border rounded" %>
 <% end %>

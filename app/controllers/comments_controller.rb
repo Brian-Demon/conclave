@@ -32,6 +32,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
+    @discussion = @comment.discussion
     unless can? :update, @comment
       redirect_back(fallback_location: root_url)
     end

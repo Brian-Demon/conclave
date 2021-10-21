@@ -1,3 +1,11 @@
 <h1>Edit Discussion</h1>
-
-<%= render "form" %>
+<ul class="flex justify-left items-left mt-4">
+    <li class="cursor-pointer border b-6 text-gray-500 p-2 active bg-gray-200" id="comment-form-toggle">Write</li>
+    <li class="cursor-pointer border b-6 text-gray-500 p-2 bg-gray-200" id="comment-preview-toggle">Preview</li>
+</ul>
+<div class="border b-2 p-4 comment-pane">
+    <div class="comment-pane-content bg-white" id="comment-form">
+    <%= render "form" %>
+    </div>
+    <div class="comment-pane-content bg-white" id="comment-preview"></div>
+</div>
