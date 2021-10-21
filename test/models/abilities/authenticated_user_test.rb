@@ -81,4 +81,8 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
   test "cannot update role for anyone" do
     refute Ability.new(@user).can?(:update_roles, @user_2)
   end
+
+  test "cannot lock a Discussion" do
+    refute Ability.new(@user).can?(:lock, @discussion)
+  end
 end
