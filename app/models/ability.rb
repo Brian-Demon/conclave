@@ -66,5 +66,14 @@ class Ability
       can :ban, User
       can :unban, User
     end
+
+    if user.auth_role == "moderator"
+      can :lock, Discussion
+      can :unlock, Discussion
+      can :delete, Discussion
+      can :ban, User
+      can :unban, User
+      can :delete, Comment
+    end
   end
 end
