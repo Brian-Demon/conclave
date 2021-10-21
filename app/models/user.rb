@@ -27,6 +27,10 @@ class User < ApplicationRecord
     comments.count + discussions.count 
   end
 
+  def banned?
+    auth_role == "banned"
+  end
+
   def self.default_auth_role
     "user"
   end
