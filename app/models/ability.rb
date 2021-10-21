@@ -57,10 +57,27 @@ class Ability
       can :create, Discussion
       can :delete, Discussion
       can :update, Discussion
+      can :lock, Discussion
+      can :unlock, Discussion
       can :update, Comment
       can :delete, Comment
       can :create, Comment
       can :update_roles, User
+      can :ban, User
+      can :unban, User
+      can :pin, Discussion
+      can :unpin, Discussion
+    end
+
+    if user.auth_role == "moderator"
+      can :lock, Discussion
+      can :unlock, Discussion
+      can :delete, Discussion
+      can :ban, User
+      can :unban, User
+      can :delete, Comment
+      can :pin, Discussion
+      can :unpin, Discussion
     end
   end
 end

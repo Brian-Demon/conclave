@@ -2,4 +2,21 @@
   <div><%= user_avatar(postable.user, width: 64) %></div>
   <div><%= postable.user.login %></div>
   <div>Posts: <%= postable.user.post_count %></div>
+  <% if !postable.user.banned? %>
+    <% if can? :ban, postable.user %> 
+      <%= button_to "Ban",
+        role_path(postable.user, user: { auth_role: "banned" }),
+        method: :patch,
+        data: { confirm: "Are you sure you want to ban this user?" },
+        class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-500 text-white hover:bg-yellow-500 cursor-pointer p-1" %>
+    <% end %>
+  <% else %>
+    <% if can? :unban, postable.user %> 
+      <%= button_to "Unban",
+        role_path(postable.user, user: { auth_role: "user" }),
+        method: :patch,
+        data: { confirm: "Are you sure you want to unban this user?" },
+        class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-500 text-white hover:bg-yellow-500 cursor-pointer p-1" %>
+    <% end %>
+  <% end %>
 </div>

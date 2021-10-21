@@ -81,4 +81,28 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
   test "cannot update role for anyone" do
     refute Ability.new(@user).can?(:update_roles, @user_2)
   end
+
+  test "cannot lock a Discussion" do
+    refute Ability.new(@user).can?(:lock, @discussion)
+  end
+
+  test "cannot unlock a Discussion" do
+    refute Ability.new(@user).can?(:unlock, @discussion)
+  end
+
+  test "cannot ban a User" do
+    refute Ability.new(@user).can?(:ban, @user_2)
+  end
+
+  test "cannot unban a User" do
+    refute Ability.new(@user).can?(:unban, @user_2)
+  end
+
+  test "cannot pin a Discussion" do
+    refute Ability.new(@user).can?(:pin, @discussion)
+  end
+
+  test "cannot unpin a Discussion" do
+    refute Ability.new(@user).can?(:unpin, @discussion)
+  end
 end

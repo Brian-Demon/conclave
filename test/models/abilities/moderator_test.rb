@@ -1,9 +1,9 @@
 require "test_helper"
 
-class Ability::AdminTest < ActiveSupport::TestCase
+class Ability::ModeratorTest < ActiveSupport::TestCase
   def setup
     @category = Category.new
-    @user = User.new(auth_role: "admin")
+    @user = User.new(auth_role: "moderator")
     @user_2 = User.new
     @discussion = @category.discussions.build(user: @user)
     @discussion2 = @category.discussions.build(user: @user_2)
@@ -15,20 +15,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:read, @category)
   end
 
-  test "can update a Category" do
-    assert Ability.new(@user).can?(:update, @category)
-  end
-
-  test "can delete a Category" do
-    assert Ability.new(@user).can?(:delete, @category)
-  end
-
   test "can read all Discussions" do
     assert Ability.new(@user).can?(:read, @discussion)
-  end
-
-  test "can create a Discussion made by someone else" do
-    assert Ability.new(@user).can?(:create, @discussion2)
   end
 
   test "can create a Discussion made by themselves" do
@@ -47,16 +35,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:update, @discussion)
   end
 
-  test "can update a Discussion made by someone else" do
-    assert Ability.new(@user).can?(:update, @discussion2)
-  end
-
   test "can update their own Comment" do
     assert Ability.new(@user).can?(:update, @comment)
-  end
-
-  test "can update a Comment made by someone else" do
-    assert Ability.new(@user).can?(:update, @comment2)
   end
 
   test "can read all Comments" do
@@ -67,22 +47,12 @@ class Ability::AdminTest < ActiveSupport::TestCase
     assert Ability.new(@user).can?(:create, @comment)
   end
 
-  test "can create a Comment on a locked discussion" do
-    @discussion.locked = true
-
-    assert Ability.new(@user).can?(:create, @comment)
-  end
-
   test "can delete a Comment" do
     assert Ability.new(@user).can?(:delete, @comment)
   end
 
   test "can delete a Comment made by someone else" do
     assert Ability.new(@user).can?(:delete, @comment2)
-  end
-
-  test "can change auth_role of another user" do
-    assert Ability.new(@user).can?(:update_roles, @user_2)
   end
 
   test "can lock a Discussion" do

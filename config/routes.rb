@@ -14,7 +14,14 @@ Rails.application.routes.draw do
   end
 
   # DISCUSSION
-  resources :discussions, only: :destroy
+  resources :discussions, only: [:edit, :update, :destroy] do
+    member do
+      post :lock
+      post :unlock
+      post :pin
+      post :unpin
+    end
+  end
 
   # COMMENT
   resources :comments, only: [:create, :destroy, :edit, :update] do 

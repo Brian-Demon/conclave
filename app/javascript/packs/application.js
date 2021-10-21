@@ -35,7 +35,7 @@ docReady(function() {
       document.getElementById("comment-form-toggle").classList.remove("active");
       document.getElementById("comment-preview-toggle").classList.add("active");
 
-      let content = document.getElementById("comment_body").value;
+      let content = document.getElementsByClassName("previewable-body")[0].value;
       let csrf_token = document.getElementsByName("authenticity_token")[0].value;
       fetch("/comments/preview", {
           method: "POST",
@@ -59,13 +59,6 @@ docReady(function() {
       document.getElementById("comment-form").style.display = "block";
       document.getElementById("comment-form-toggle").classList.add("active");
       document.getElementById("comment-preview-toggle").classList.remove("active");
-    });
-  }
-
-  let roleDropdown = document.getElementsByClassName("role-dropdown");
-  for(var i = 0, len=roleDropdown.length; i < len; i=i+1|0) {
-    roleDropdown[i].addEventListener("change", (event) => {
-      event.target.parentElement.submit();
     });
   }
 });

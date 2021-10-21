@@ -1,5 +1,5 @@
 <%= simple_form_for([@category, @discussion]) do |form| %>
   <%= form.input :title %>
-  <%= form.input :body %>
+  <%= form.input :body, input_html: { class: "previewable-body" } %>
   <%= form.button :submit, "Submit", class: "border rounded" %>
 <% end %>
