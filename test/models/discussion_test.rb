@@ -6,8 +6,12 @@ class DiscussionTest < ActiveSupport::TestCase
   # end
 
   def setup
-    @category = Category.new
+    @category = Category.new(name: "Important Stuff")
     @user = User.new
+  end
+
+  def teardown
+    Category.destroy_all
   end
 
   test "is valid" do
@@ -67,5 +71,23 @@ class DiscussionTest < ActiveSupport::TestCase
 
     discussion.unpin
     refute discussion.pinned
+  end
+
+  test "pinned scope returns only pinned Discussions" do
+    @category.save
+    @user.save
+    discussion_pinned = Discussion.create!(category: @category, user: @user, body: "Important Stuff in here", pinned: true)
+    discussion_unpinned = Discussion.create!(category: @category, user: @user, body: "lol memes", pinned: false)
+
+    assert_equal [discussion_pinned], Discussion.pinned.all.to_a
+  end
+
+  test "unpinned scope returns only unpinned Discussions" do
+    @category.save
+    @user.save
+    discussion_pinned = Discussion.create!(category: @category, user: @user, body: "Important Stuff in here", pinned: true)
+    discussion_unpinned = Discussion.create!(category: @category, user: @user, body: "lol memes", pinned: false)
+
+    assert_equal [discussion_unpinned], Discussion.unpinned.all.to_a
   end
 end

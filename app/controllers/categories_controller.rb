@@ -8,6 +8,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/1 or /categories/1.json
   def show
+    @discussions = @category.discussions.pinned.order(created_at: :desc) + @category.discussions.unpinned.order(created_at: :desc)
   end
 
   # GET /categories/new
