@@ -20,4 +20,9 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy, :edit, :update] do 
     post :preview, on: :collection
   end
+
+  # USER ROLES PAGE
+  scope "/users" do
+    resources :roles, only: [:update, :index]
+  end
 end
