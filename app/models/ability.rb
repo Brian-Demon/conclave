@@ -58,6 +58,7 @@ class Ability
       can :delete, Discussion
       can :update, Discussion
       can :lock, Discussion
+      can :unlock, Discussion
       can :update, Comment
       can :delete, Comment
       can :create, Comment
