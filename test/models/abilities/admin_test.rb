@@ -96,4 +96,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
   test "can ban a User" do
     assert Ability.new(@user).can?(:ban, @user_2)
   end
+
+  test "can unban a User" do
+    assert Ability.new(@user).can?(:unban, @user_2)
+  end
 end

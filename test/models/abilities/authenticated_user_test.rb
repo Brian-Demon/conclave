@@ -93,4 +93,8 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
   test "cannot ban a User" do
     refute Ability.new(@user).can?(:ban, @user_2)
   end
+
+  test "cannot unban a User" do
+    refute Ability.new(@user).can?(:unban, @user_2)
+  end
 end
