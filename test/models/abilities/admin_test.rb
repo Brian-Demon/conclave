@@ -88,4 +88,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
   test "can lock a Discussion" do
     assert Ability.new(@user).can?(:lock, @discussion)
   end
+
+  test "can unlock a Discussion" do
+    assert Ability.new(@user).can?(:unlock, @discussion)
+  end
 end
