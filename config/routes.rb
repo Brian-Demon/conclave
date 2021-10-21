@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # DISCUSSION
   resources :discussions, only: :destroy do
     post :lock, on: :member
+    post :unlock, on: :member
   end
 
   # COMMENT
