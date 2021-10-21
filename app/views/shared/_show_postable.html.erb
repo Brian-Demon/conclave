@@ -1,18 +1,28 @@
 <div class="grid grid-cols-6 border rounded m-4 p-4 border-gray-500">
   <%= render "shared/user_info", postable: postable %>
   <div class="col-span-5">
-    <div class="grid grid-cols-6 content-center items-center border-b-2"> 
-      <div class="col-span-5 mx-1">
+    <div class="grid grid-cols-6 content-center items-center border-b-2 justify-end"> 
+      <div class="col-span-5 mx-1 justify-self-start">
         Posted on <%= postable.created_at.strftime("%d %b %y %H:%M %Z") %>
       </div>
-      <div class="justify-self-end">
-        <% if can? :delete, postable %>
-          <%= button_to "Delete",
-            postable,
-            method: :delete,
-            data: { confirm: "Are you sure you want to delete?"},
-            class: "border rounded mx-1 bg-red-500 hover:bg-red-700 text-white hover:bg-red-700 cursor-pointer p-1" %>
-        <% end %>
+      <div class="flex justify-between">
+        <div>
+          <% if can? :lock, postable %>
+            <%= button_to "Lock",
+              lock_discussion_path(postable),
+              data: { confirm: "Are you sure you want to lock this #{postable.class.to_s.humanize}?" },
+              class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-500 text-white hover:bg-yellow-500 cursor-pointer p-1" %>
+          <% end %>
+        </div>
+        <div>
+          <% if can? :delete, postable %>
+            <%= button_to "Delete",
+              postable,
+              method: :delete,
+              data: { confirm: "Are you sure you want to delete?"},
+              class: "border rounded mx-1 bg-red-500 hover:bg-red-700 text-white hover:bg-red-700 cursor-pointer p-1" %>
+          <% end %>
+        </div>
       </div>
     </div>
     <%= postable.formatted_body.html_safe %>
