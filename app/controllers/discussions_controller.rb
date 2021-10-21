@@ -11,6 +11,9 @@ class DiscussionsController < ApplicationController
 
   def edit
     @discussion = Discussion.find(params[:id])
+    unless can? :update, @discussion
+      redirect_back(fallback_location: root_url)
+    end
   end
 
   def create
@@ -30,10 +33,14 @@ class DiscussionsController < ApplicationController
     @discussion = Discussion.find(params[:id])
 
     respond_to do |format|
-      if can?(:update, @discussion) && @discussion.update(discussion_params)
-        format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully updated." }
+      if can?(:update, @discussion)
+        if @discussion.update(discussion_params)
+          format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully updated." }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to [@category, @discussion], status: 403 }
       end
     end
   end
