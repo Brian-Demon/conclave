@@ -31,9 +31,24 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @comment = Comment.find(params[:id])
+    unless can? :update, @comment
+      redirect_back(fallback_location: root_url)
+    end
   end
 
   def update
+    @comment = Comment.find(params[:id])
+    @discussion = @comment.discussion
+    @category = @discussion.category
+
+    respond_to do |format|
+      if can?(:update, @comment) && @comment.update(comment_params)
+        format.html { redirect_to [@category, @discussion], notice: "Comment was successfully updated." }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   def preview
