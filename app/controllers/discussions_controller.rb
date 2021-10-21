@@ -1,5 +1,5 @@
 class DiscussionsController < ApplicationController
-  before_action :set_category, except: :destroy
+  before_action :set_category, except: [:destroy, :lock]
   
   def show
     @discussion = Discussion.find(params[:id])
@@ -37,6 +37,23 @@ class DiscussionsController < ApplicationController
 
   def set_category
     @category = Category.find(params[:category_id])
+  end
+
+  def lock
+    @discussion = Discussion.find(params[:id])
+    @category = @discussion.category
+
+    respond_to do |format|
+      if can?(:lock, @discussion)
+        if @discussion.lock
+          format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully locked." }
+        else
+          format.html { redirect_to [@category, @discussion], notice: "Discussion could not be locked.", status: :unprocessable_entity }
+        end
+      else
+        format.html { redirect_to [@category, @discussion], status: 403 }
+      end
+    end
   end
 
   private
