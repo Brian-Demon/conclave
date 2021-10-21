@@ -12,6 +12,7 @@ class DiscussionTest < ActiveSupport::TestCase
 
   def teardown
     Category.destroy_all
+    Discussion.destroy_all
   end
 
   test "is valid" do
