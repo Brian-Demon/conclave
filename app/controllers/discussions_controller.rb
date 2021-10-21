@@ -9,6 +9,10 @@ class DiscussionsController < ApplicationController
     @discussion = @category.discussions.build(user: current_user)
   end
 
+  def edit
+    @discussion = Discussion.find(params[:id])
+  end
+
   def create
     @discussion = @category.discussions.build(discussion_params)
     @discussion.user = current_user
@@ -16,6 +20,18 @@ class DiscussionsController < ApplicationController
     respond_to do |format|
       if can?(:create, @discussion) && @discussion.save
         format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully created." }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @discussion = Discussion.find(params[:id])
+
+    respond_to do |format|
+      if can?(:update, @discussion) && @discussion.update(discussion_params)
+        format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully updated." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

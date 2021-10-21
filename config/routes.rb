@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   # DISCUSSION
-  resources :discussions, only: :destroy do
+  resources :discussions, only: [:edit, :update, :destroy] do
     member do
       post :lock
       post :unlock

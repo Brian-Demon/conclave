@@ -2,10 +2,10 @@
   <%= render "shared/user_info", postable: postable %>
   <div class="col-span-5">
     <div class="grid grid-cols-6 content-center items-center border-b-2 justify-end"> 
-      <div class="col-span-5 mx-1 justify-self-start">
+      <div class="col-span-4 mx-1 justify-self-start">
         Posted on <%= postable.created_at.strftime("%d %b %y %H:%M %Z") %>
       </div>
-      <div class="flex justify-between">
+      <div class="col-span-2 flex justify-end">
         <div>
           <% if postable.respond_to?(:pinned) && !postable.pinned %>
             <% if can? :pin, postable %>
@@ -42,6 +42,14 @@
                 class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1"
               %>
             <% end %>
+          <% end %>
+        </div>
+        <div>
+          <% if can? :update, postable %>
+            <%= button_to "Edit",
+              { action: "edit", controller: postable.class.name.pluralize.downcase, id: postable.id },
+              method: :get,
+              class: "border rounded mx-1 bg-blue-500 hover:bg-blue-700 text-white hover:bg-blue-700 cursor-pointer p-1" %>
           <% end %>
         </div>
         <div>
