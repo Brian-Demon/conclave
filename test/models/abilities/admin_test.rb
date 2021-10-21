@@ -92,4 +92,8 @@ class Ability::AdminTest < ActiveSupport::TestCase
   test "can unlock a Discussion" do
     assert Ability.new(@user).can?(:unlock, @discussion)
   end
+
+  test "can ban a User" do
+    assert Ability.new(@user).can?(:ban, @user_2)
+  end
 end

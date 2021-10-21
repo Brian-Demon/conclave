@@ -24,4 +24,16 @@ class UserTest < ActiveSupport::TestCase
 
     refute user.valid?
   end
+
+  test "banned returns true when role is set to banned" do
+    user = User.new(auth_role: "banned")
+
+    assert user.banned?
+  end
+
+  test "banned returns false when role is not set to banned" do
+    user = User.new
+
+    refute user.banned?
+  end
 end

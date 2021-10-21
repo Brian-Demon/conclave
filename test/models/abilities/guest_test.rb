@@ -50,10 +50,14 @@ class Ability::GuestTest < ActiveSupport::TestCase
   end
 
   test "cannot lock a Discussion" do
-    refute Ability.new(@user).can?(:lock, @discussion)
+    refute Ability.new(nil).can?(:lock, @discussion)
   end
 
   test "cannot unlock a Discussion" do
-    refute Ability.new(@user).can?(:unlock, @discussion)
+    refute Ability.new(nil).can?(:unlock, @discussion)
+  end
+
+  test "cannot ban a User" do
+    refute Ability.new(nil).can?(:ban, @user_2)
   end
 end

@@ -89,4 +89,8 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
   test "cannot unlock a Discussion" do
     refute Ability.new(@user).can?(:unlock, @discussion)
   end
+
+  test "cannot ban a User" do
+    refute Ability.new(@user).can?(:ban, @user_2)
+  end
 end
