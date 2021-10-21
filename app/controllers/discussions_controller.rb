@@ -1,5 +1,5 @@
 class DiscussionsController < ApplicationController
-  before_action :set_category, except: [:destroy, :lock, :unlock]
+  before_action :set_category, except: [:destroy, :lock, :unlock, :pin, :unpin]
   
   def show
     @discussion = Discussion.find(params[:id])
@@ -66,6 +66,40 @@ class DiscussionsController < ApplicationController
           format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully unlocked." }
         else
           format.html { redirect_to [@category, @discussion], notice: "Discussion could not be unlocked.", status: :unprocessable_entity }
+        end
+      else
+        format.html { redirect_to [@category, @discussion], status: 403 }
+      end
+    end
+  end
+
+  def pin
+    @discussion = Discussion.find(params[:id])
+    @category = @discussion.category
+
+    respond_to do |format|
+      if can?(:pin, @discussion)
+        if @discussion.pin
+          format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully pinned." }
+        else
+          format.html { redirect_to [@category, @discussion], notice: "Discussion could not be pinned.", status: :unprocessable_entity }
+        end
+      else
+        format.html { redirect_to [@category, @discussion], status: 403 }
+      end
+    end
+  end
+
+  def unpin
+    @discussion = Discussion.find(params[:id])
+    @category = @discussion.category
+
+    respond_to do |format|
+      if can?(:unpin, @discussion)
+        if @discussion.unpin
+          format.html { redirect_to [@category, @discussion], notice: "Discussion was successfully unpinned." }
+        else
+          format.html { redirect_to [@category, @discussion], notice: "Discussion could not be unpinned.", status: :unprocessable_entity }
         end
       else
         format.html { redirect_to [@category, @discussion], status: 403 }

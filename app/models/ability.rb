@@ -65,6 +65,8 @@ class Ability
       can :update_roles, User
       can :ban, User
       can :unban, User
+      can :pin, Discussion
+      can :unpin, Discussion
     end
 
     if user.auth_role == "moderator"
@@ -74,6 +76,8 @@ class Ability
       can :ban, User
       can :unban, User
       can :delete, Comment
+      can :pin, Discussion
+      can :unpin, Discussion
     end
   end
 end

@@ -64,4 +64,12 @@ class Ability::GuestTest < ActiveSupport::TestCase
   test "cannot unban a User" do
     refute Ability.new(nil).can?(:unban, @user_2)
   end
+
+  test "cannot pin a Discussion" do
+    refute Ability.new(@user).can?(:pin, @discussion)
+  end
+
+  test "cannot unpin a Discussion" do
+    refute Ability.new(@user).can?(:unpin, @discussion)
+  end
 end

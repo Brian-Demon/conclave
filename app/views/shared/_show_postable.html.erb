@@ -7,19 +7,40 @@
       </div>
       <div class="flex justify-between">
         <div>
+          <% if postable.respond_to?(:pinned) && !postable.pinned %>
+            <% if can? :pin, postable %>
+              <%= button_to "Pin",
+                pin_discussion_path(postable),
+                data: { confirm: "Are you sure you want to pin this #{postable.class.to_s.humanize}?" },
+                class: "border rounded mx-1 bg-green-500 hover:bg-green-700 text-white hover:bg-green-500 cursor-pointer p-1"
+              %>
+            <% end %>
+          <% else %>
+            <% if can? :unpin, postable %>
+              <%= button_to "Unpin",
+                unpin_discussion_path(postable),
+                data: { confirm: "Are you sure you want to unpin this #{postable.class.to_s.humanize}?" },
+                class: "border rounded mx-1 bg-green-500 hover:bg-green-700 text-white hover:bg-green-500 cursor-pointer p-1"
+              %>
+            <% end %>
+          <% end %>
+        </div>
+        <div>
           <% if postable.respond_to?(:locked) && !postable.locked %>
             <% if can? :lock, postable %>
               <%= button_to "Lock",
                 lock_discussion_path(postable),
                 data: { confirm: "Are you sure you want to lock this #{postable.class.to_s.humanize}?" },
-                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-500 text-white hover:bg-yellow-500 cursor-pointer p-1" %>
+                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1"
+              %>
             <% end %>
           <% else %>
             <% if can? :unlock, postable %>
               <%= button_to "Unlock",
                 unlock_discussion_path(postable),
                 data: { confirm: "Are you sure you want to unlock this #{postable.class.to_s.humanize}?" },
-                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-500 text-white hover:bg-yellow-500 cursor-pointer p-1" %>
+                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1"
+              %>
             <% end %>
           <% end %>
         </div>

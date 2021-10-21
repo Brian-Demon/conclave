@@ -20,4 +20,12 @@ class Discussion < ApplicationRecord
   def unlock
     update(locked: false)
   end
+
+  def pin
+    update(pinned: true)
+  end
+
+  def unpin
+    update(pinned: false)
+  end
 end

@@ -52,4 +52,20 @@ class DiscussionTest < ActiveSupport::TestCase
     discussion.unlock
     refute discussion.locked
   end
+
+  test "pin sets pinned to true" do
+    discussion = Discussion.new(category: @category, user: @user, body: nil, pinned: false)
+    refute discussion.pinned
+
+    discussion.pin
+    assert discussion.pinned
+  end
+
+  test "unpin sets pinned to false" do
+    discussion = Discussion.new(category: @category, user: @user, body: nil, pinned: true)
+    assert discussion.pinned
+
+    discussion.unpin
+    refute discussion.pinned
+  end
 end
