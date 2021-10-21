@@ -77,4 +77,8 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
   test "cannot delete a Comment made by someone else" do
     refute Ability.new(@user_2).can?(:delete, @comment)
   end
+
+  test "cannot update role for anyone" do
+    refute Ability.new(@user).can?(:update_roles, @user_2)
+  end
 end
