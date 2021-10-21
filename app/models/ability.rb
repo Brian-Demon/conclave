@@ -64,6 +64,7 @@ class Ability
       can :create, Comment
       can :update_roles, User
       can :ban, User
+      can :unban, User
     end
   end
 end
