@@ -63,6 +63,7 @@ class Ability
       can :delete, Comment
       can :create, Comment
       can :update_roles, User
+      can :ban, User
     end
   end
 end
