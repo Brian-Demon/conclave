@@ -3,7 +3,21 @@
   <div class="col-span-5">
     <div class="grid grid-cols-6 content-center items-center border-b-2 justify-end"> 
       <div class="col-span-4 mx-1 justify-self-start">
-        Posted on <%= postable.created_at.strftime("%m/%d/%Y %I:%M%p") %>
+        <div class="flex">
+          <h1 class="text-gray-500">
+            Posted on <%= postable.created_at.strftime("%m/%d/%Y %I:%M%p") %>
+          </h1>
+          <% if postable.respond_to?(:locked) && postable.locked? %>
+            <h1 class="pl-1 font-bold text-yellow-500">
+              (Locked)
+            </h1>
+          <% end %>
+          <% if postable.respond_to?(:pinned) && postable.pinned? %>
+            <h1 class="pl-1 font-bold text-green-500">
+              (Pinned)
+            </h1>
+          <% end %>
+        </div>
       </div>
       <div class="col-span-2 flex justify-end">
         <div>
