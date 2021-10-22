@@ -1,6 +1,12 @@
 <div class="flex justify-between">
   <div class="flex justify-items-start mx-4">
-    <h1 class="text-2xl"><%= link_to "Conclave", root_path, class: "text-white" %></h1>
+    <h1 class="text-2xl">
+      <%= link_to(
+        "Conclave",
+        root_path,
+        class: "text-white hover:text-black",
+      )%>
+    </h1>
   </div>
 
   <div class="flex justify-end">
@@ -8,12 +14,27 @@
       <% if current_user %>
         <div class="flex justify-between">
           <% if can?(:update_roles, User) %>
-            <%= button_to "User Roles", roles_path, method: :get, class: "mx-1 p-1 w-28 border border-gray-700 rounded cursor-pointer bg-purple-500 hover:bg-purple-600 text-black" %>
+            <%= button_to(
+              "User Roles",
+              roles_path,
+              method: :get,
+              class: "mx-1 p-1 w-28 border border-gray-700 rounded cursor-pointer bg-purple-500 hover:bg-purple-600 text-black",
+            )%>
           <% end %>
-          <%= button_to "Logout", logout_path, method: :delete, class: "cursor-pointer border rounded mx-4 p-1 w-16 bg-white hover:bg-gray-300" %>
+          <%= button_to(
+            "Logout",
+            logout_path,
+            method: :delete,
+            class: "cursor-pointer border rounded mx-4 p-1 w-16 bg-white hover:bg-gray-300"
+          )%>
         </div>
       <% else %>
-        <%= button_to "Login", "/auth/google_oauth2", method: :post, class: "cursor-pointer border rounded mx-4 p-1 w-16 bg-white hover:bg-gray-300" %>
+        <%= button_to(
+          "Login",
+          "/auth/google_oauth2",
+          method: :post,
+          class: "cursor-pointer border rounded mx-4 p-1 w-16 bg-white hover:bg-gray-300",
+        )%>
       <% end %>
     </div>
   </div>

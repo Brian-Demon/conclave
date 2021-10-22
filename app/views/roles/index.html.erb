@@ -10,7 +10,7 @@
     </thead>
     <tbody class="text-gray-700">
       <% @users.each_with_index do |user, index| %>
-        <tr class="<%= index % 2 == 0 ? 'bg-gray-200' : 'big-white' %>">
+        <tr class="<%= index % 2 == 0 ? "bg-gray-200" : "big-white" %>">
           <td class="text-left py-3 px-4"><%= user.login %></td>
           <td class="text-left py-3 px-4">
           <%= simple_form_for(user, url: role_path(user)) do |form| %>

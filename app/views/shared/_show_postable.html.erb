@@ -3,62 +3,67 @@
   <div class="col-span-5">
     <div class="grid grid-cols-6 content-center items-center border-b-2 justify-end"> 
       <div class="col-span-4 mx-1 justify-self-start">
-        Posted on <%= postable.created_at.strftime("%d %b %y %H:%M %Z") %>
+        Posted on <%= postable.created_at.strftime("%m/%d/%Y %I:%M%p") %>
       </div>
       <div class="col-span-2 flex justify-end">
         <div>
           <% if postable.respond_to?(:pinned) && !postable.pinned %>
             <% if can? :pin, postable %>
-              <%= button_to "Pin",
+              <%= button_to(
+                "Pin",
                 pin_discussion_path(postable),
                 data: { confirm: "Are you sure you want to pin this #{postable.class.to_s.humanize}?" },
-                class: "border rounded mx-1 bg-green-500 hover:bg-green-700 text-white hover:bg-green-500 cursor-pointer p-1"
-              %>
+                class: "border rounded mx-1 bg-green-500 hover:bg-green-700 text-white hover:bg-green-500 cursor-pointer p-1",
+              )%>
             <% end %>
           <% else %>
             <% if can? :unpin, postable %>
-              <%= button_to "Unpin",
+              <%= button_to("Unpin",
                 unpin_discussion_path(postable),
                 data: { confirm: "Are you sure you want to unpin this #{postable.class.to_s.humanize}?" },
-                class: "border rounded mx-1 bg-green-500 hover:bg-green-700 text-white hover:bg-green-500 cursor-pointer p-1"
-              %>
+                class: "border rounded mx-1 bg-green-500 hover:bg-green-700 text-white hover:bg-green-500 cursor-pointer p-1",
+              )%>
             <% end %>
           <% end %>
         </div>
         <div>
           <% if postable.respond_to?(:locked) && !postable.locked %>
             <% if can? :lock, postable %>
-              <%= button_to "Lock",
+              <%= button_to("Lock",
                 lock_discussion_path(postable),
                 data: { confirm: "Are you sure you want to lock this #{postable.class.to_s.humanize}?" },
-                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1"
-              %>
+                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1",
+              )%>
             <% end %>
           <% else %>
             <% if can? :unlock, postable %>
-              <%= button_to "Unlock",
+              <%= button_to("Unlock",
                 unlock_discussion_path(postable),
                 data: { confirm: "Are you sure you want to unlock this #{postable.class.to_s.humanize}?" },
-                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1"
-              %>
+                class: "border rounded mx-1 bg-yellow-500 hover:bg-yellow-700 text-white hover:bg-yellow-500 cursor-pointer p-1",
+              )%>
             <% end %>
           <% end %>
         </div>
         <div>
           <% if can? :update, postable %>
-            <%= button_to "Edit",
+            <%= button_to(
+              "Edit",
               { action: "edit", controller: postable.class.name.pluralize.downcase, id: postable.id },
               method: :get,
-              class: "border rounded mx-1 bg-blue-500 hover:bg-blue-700 text-white hover:bg-blue-700 cursor-pointer p-1" %>
+              class: "border rounded mx-1 bg-blue-500 hover:bg-blue-700 text-white hover:bg-blue-700 cursor-pointer p-1",
+            )%>
           <% end %>
         </div>
         <div>
           <% if can? :delete, postable %>
-            <%= button_to "Delete",
+            <%= button_to(
+              "Delete",
               postable,
               method: :delete,
               data: { confirm: "Are you sure you want to delete?"},
-              class: "border rounded mx-1 bg-red-500 hover:bg-red-700 text-white hover:bg-red-700 cursor-pointer p-1" %>
+              class: "border rounded mx-1 bg-red-500 hover:bg-red-700 text-white hover:bg-red-700 cursor-pointer p-1",
+            )%>
           <% end %>
         </div>
       </div>
