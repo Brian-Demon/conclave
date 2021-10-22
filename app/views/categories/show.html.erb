@@ -27,12 +27,14 @@
   </div>
 </div>
 
-<%= button_to(
-  "Create Discussion",
-  new_category_discussion_path(@category),
-  method: :get,
-  class: "mx-1 w-38 p-2 border rounded cursor-pointer bg-blue-500 hover:bg-blue-600 text-white",
-)%>
+<% if can? :create, Discussion %>
+  <%= button_to(
+    "Create Discussion",
+    new_category_discussion_path(@category),
+    method: :get,
+    class: "mx-1 w-38 p-2 border rounded cursor-pointer bg-blue-500 hover:bg-blue-600 text-white",
+  )%>
+<% end %>
 
 <table class="mt-4 w-full table-auto">
   <thead class="bg-gray-700 text-white">
