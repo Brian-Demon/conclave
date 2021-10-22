@@ -31,4 +31,12 @@ class Discussion < ApplicationRecord
   def unpin
     update(pinned: false)
   end
+
+  def locked?
+    locked == true
+  end
+
+  def pinned?
+    pinned == true
+  end
 end

@@ -91,4 +91,28 @@ class DiscussionTest < ActiveSupport::TestCase
 
     assert_equal [discussion_unpinned], Discussion.unpinned.all.to_a
   end
+
+  test "locked returns true when Discussion is locked" do
+    discussion = Discussion.create!(category: @category, user: @user, body: "Important Stuff in here", locked: true)
+
+    assert discussion.locked?
+  end
+
+  test "locked returns false when Discussion is not locked" do
+    discussion = Discussion.create!(category: @category, user: @user, body: "Important Stuff in here", locked: false)
+
+    refute discussion.locked?
+  end
+
+  test "pinned returns true when Discussion is pinned" do
+    discussion = Discussion.create!(category: @category, user: @user, body: "Important Stuff in here", pinned: true)
+
+    assert discussion.pinned?
+  end
+
+  test "pinned returns false when Discussion is not pinned" do
+    discussion = Discussion.create!(category: @category, user: @user, body: "Important Stuff in here", pinned: false)
+
+    refute discussion.pinned?
+  end
 end

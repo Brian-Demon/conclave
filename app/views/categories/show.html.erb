@@ -34,16 +34,71 @@
   class: "mx-1 w-38 p-2 border rounded cursor-pointer bg-blue-500 hover:bg-blue-600 text-white",
 )%>
 
-<% @discussions.each do |discussion| %>
-<div class="grid grid-cols-6 border rounded m-4 p-4">
-  <div class="col-span-5">
-    <h1 class="text-lg font-bold">
-      <%= link_to(
-        discussion.title,
-        [@category, discussion],
-        class: "hover:text-yellow-700",
-      )%>
-    </h1>
-  </div>
-</div>
-<% end %>
+<table class="mt-4 w-full table-auto">
+  <thead class="bg-gray-700 text-white">
+    <tr> 
+      <th class="text-left py-3 px-4 uppercase font-semibold text-sm w-1/2">Discussion</th>
+      <th class="text-center py-3 px-4 uppercase font-semibold text-sm w-1/6">Replies</th>
+      <th class="text-center py-3 px-4 uppercase font-semibold text-sm w-1/4">Last Post</th>
+    </tr>
+  </thead>
+  <tbody class="text-gray-700">
+    <% @discussions.each_with_index do |discussion, index| %>
+      <tr class="<%= index % 2 == 0 ? "bg-gray-200" : "big-white" %>">
+        <td class="text-left">
+          <div class="flex">
+            <h1 class="text-lg font-bold pl-2">
+              <%= link_to(
+                discussion.title,
+                [@category, discussion],
+                class: "hover:text-yellow-700",
+              )%>
+            </h1>
+            <% if discussion.locked? %>
+              <h1 class="pl-1 text-lg font-bold text-yellow-500">
+                (Locked)
+              </h1>
+            <% end %>
+            <% if discussion.pinned? %>
+              <h1 class="pl-1 text-lg font-bold text-green-500">
+                (Pinned)
+              </h1>
+            <% end %>
+          </div>
+          <div class="flex pl-4">
+            by
+            <h1 class="pl-1 pr-1 font-bold text-yellow-700">
+              <%= discussion.user.login %>
+            </h1>
+            on
+            <h1 class="pl-1 text-gray-500">
+              <%= discussion.created_at.strftime("%m/%d/%Y %I:%M%p") %>
+            </h1>
+          </div>
+        </td>
+        <td class="text-center">
+          <div class="flex justify-center">
+            <div class="w-16 border rounded bg-gray-400 text-white font-bold">
+              <%= discussion.comments.count %>
+            </div>
+          </div>
+        </td>
+        <td class="text-center">
+          <% if discussion.comments.count > 0 %>
+            <div class="flex justify-center">
+              Last post by
+              <h1 class="pl-1 font-bold text-yellow-700">
+                <%= discussion.comments.last.user.login %>
+              </h1>
+            </div>
+            <div class="flex justify-center">
+              <h1 class="text-xs text-gray-500">
+                <%= discussion.comments.last.created_at.strftime("%m/%d/%Y %I:%M%p") %>
+              </h1>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
