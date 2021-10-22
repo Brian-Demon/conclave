@@ -6,22 +6,44 @@
 
 <div class="grid grid-cols-6 border rounded m-4 p-4">
   <div class="col-span-5">
-    <h1 class="text-xl font-bold"><%= link_to(@category.name, @category) %></h1>
+    <h1 class="text-xl font-bold">
+      <%= link_to(
+        @category.name,
+        @category,
+        class: "hover:text-yellow-700"
+      )%>
+    </h1>
     <div><%= @category.description %></div>
   </div>
   <div class="flex justify-self-end">
     <% if can? :update, @category %>
-      <%= button_to 'Edit', edit_category_path(@category), method: :get, class: "mx-1 p-1 w-16 border rounded cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white" %>
+      <%= button_to(
+        "Edit",
+        edit_category_path(@category),
+        method: :get,
+        class: "mx-1 p-1 w-16 border rounded cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white"
+      )%>
     <% end %>
   </div>
 </div>
 
-<%= link_to "Create Discussion", new_category_discussion_path(@category) %>
+<%= button_to(
+  "Create Discussion",
+  new_category_discussion_path(@category),
+  method: :get,
+  class: "mx-1 w-38 p-2 border rounded cursor-pointer bg-blue-500 hover:bg-blue-600 text-white",
+)%>
 
 <% @discussions.each do |discussion| %>
 <div class="grid grid-cols-6 border rounded m-4 p-4">
   <div class="col-span-5">
-    <h1 class="text-lg font-bold"><%= link_to(discussion.title, [@category, discussion]) %></h1>
+    <h1 class="text-lg font-bold">
+      <%= link_to(
+        discussion.title,
+        [@category, discussion],
+        class: "hover:text-yellow-700",
+      )%>
+    </h1>
   </div>
 </div>
 <% end %>

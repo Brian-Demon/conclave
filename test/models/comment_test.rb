@@ -25,21 +25,21 @@ class CommentTest < ActiveSupport::TestCase
     @comment = Comment.new(discussion: @discussion, user: nil, body: "Lol comments")
     
     refute @comment.valid?
-    assert_not_nil @comment.errors[:user], 'no validation error for user present'
+    assert_not_nil @comment.errors[:user], "no validation error for user present"
   end
 
   test "is invalid when no Discussion is present" do
     @comment = Comment.new(discussion: nil, user: @user, body: "Lol comments")
     
     refute @comment.valid?
-    assert_not_nil @comment.errors[:discussion], 'no validation error for discussion present'
+    assert_not_nil @comment.errors[:discussion], "no validation error for discussion present"
   end
   
   test "is invalid when no body is present" do
     @comment = Comment.new(discussion: @discussion, user: @user, body: nil)
     
     refute @comment.valid?
-    assert_not_nil @comment.errors[:body], 'no validation error for body present'
+    assert_not_nil @comment.errors[:body], "no validation error for body present"
   end
 
   test "save creates Markdown formatted body" do

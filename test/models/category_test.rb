@@ -15,6 +15,6 @@ class CategoryTest < ActiveSupport::TestCase
     category = Category.new(name: nil)
 
     refute category.valid?
-    assert_not_nil category.errors[:name], 'no validation error for name present'
+    assert_not_nil category.errors[:name], "no validation error for name present"
   end
 end
