@@ -8,6 +8,10 @@ class Ability::AuthenticatedUserTest < ActiveSupport::TestCase
     @comment = @discussion.comments.build(user: @user, body: "This is a test")
   end
 
+  test "cannot create a Category" do
+    refute Ability.new(@user).can?(:create, @category)
+  end
+
   test "can read all Category" do
     assert Ability.new(@user).can?(:read, @category)
   end

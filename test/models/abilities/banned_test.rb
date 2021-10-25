@@ -9,6 +9,10 @@ class Ability::BannedTest < ActiveSupport::TestCase
     @comment = @discussion.comments.build(user: @user, body: "This is a test")
   end
 
+  test "cannot create a Category" do
+    refute Ability.new(@user).can?(:create, @category)
+  end
+
   test "cannot read a category" do
     refute Ability.new(@user).can?(:read, @category)
   end
