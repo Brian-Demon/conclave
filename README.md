@@ -39,4 +39,4 @@ This old school forums is pretty bare bones with the intention to add more funct
 - ban/unban a User
 
 ## Want to Contribute?
-If you'd like to contribute to this repo please email me at BrianWMatejka@gmail.com
+If you'd like to contribute to this repo please make a fork, test your new functionality or what you'd like to add/take away/change, and PR the main repo.
