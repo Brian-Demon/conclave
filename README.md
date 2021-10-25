@@ -2,7 +2,7 @@
 Conclave is an old school forum programmed in Ruby on Rails with basic functionality. This repo is meant to be a jumping off point for anyone who wants to create a forum that harkens back to the days of dial-up modems and ecto coolers.
 
 ## Setup
-This forum uses [Google Oauth 2](https://developers.google.com/identity/protocols/oauth2) for the sessions authorization and access.
+This forum uses [Google Oauth 2](https://developers.google.com/identity/protocols/oauth2) for the session's authentication and access.
 ### Google Oauth 2
 To get Google Oauth access visit [console.cloud.google.com](https://console.cloud.google.com/) and follow the steps below:
 1. Select "APIs & Services" from the menu on the left and select "Credentials"
@@ -25,6 +25,8 @@ To get Google Oauth access visit [console.cloud.google.com](https://console.clou
     client_id: [YOUR CLIENT ID]
     client_secret: [YOUR CLIENT SECRET]
    ```
+### First time admin
+When you first setup this envornment, create your database and run up your dev server. Login so the first User is you. Then run `rails admin:set [login of the first User]` to make yourself an admin and thus you can start creating Cateories. Note that this command will only work as long as there is no other admin. Subsequent admins can be set to an admin role via the "User Roles" button in the header.
 
 ## Styling
 Conclave uses [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) for the styling.
