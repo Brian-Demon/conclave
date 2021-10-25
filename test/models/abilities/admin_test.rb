@@ -11,6 +11,10 @@ class Ability::AdminTest < ActiveSupport::TestCase
     @comment2 = @discussion2.comments.build(user: @user_2, body: "This is a test")
   end
 
+  test "can create a Cateory" do
+    assert Ability.new(@user).can?(:create, @category)
+  end
+  
   test "can read all Category" do
     assert Ability.new(@user).can?(:read, @category)
   end

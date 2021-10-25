@@ -52,6 +52,7 @@ class Ability
     can :delete, Comment, user: user
 
     if user.auth_role == "admin"
+      can :create, Category
       can :update, Category
       can :delete, Category
       can :create, Discussion
