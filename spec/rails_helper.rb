@@ -65,11 +65,11 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   OmniAuth.config.test_mode = true
-  OmniAuth.config.mock_auth[:google_oauth0] = OmniAuth::AuthHash.new({
-    provider: "google_oauth0",
-    uid: "31413",
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    provider: "google_oauth2",
+    uid: "31416",
     info: {
       name: "Test Person"
-    }
+    },
   })
 end
