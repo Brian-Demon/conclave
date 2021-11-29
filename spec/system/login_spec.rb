@@ -1,9 +1,19 @@
 require "rails_helper"
+require_relative "../modules/helpers"
 
-RSpec.describe "login", type: :system do
-  it "succesful" do
-    visit root_path
-    click_on "Login"
-    expect(page).to have_text("Logged in!")
+RSpec.describe "Session", type: :system do
+  include SessionHelpers
+
+  context "can be created via" do
+    it "login" do
+      login_as_user
+    end
+  end
+
+  context "can be destroyed via" do
+    it "logout" do
+      login_as_user
+      logout
+    end
   end
 end
