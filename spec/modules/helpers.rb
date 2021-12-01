@@ -8,23 +8,8 @@ module SessionHelpers
     )
   end
 
-  def login_as_user
-    create_user("user")
-    visit root_path
-    click_on "Login"
-    expect(page).to have_text("Logged in!")
-  end
-  
-  def login_as_moderator
-    create_user("moderator")
-    visit root_path
-    find_button "Login"
-    click_on "Login"
-    expect(page).to have_text("Logged in!")
-  end
-
-  def login_as_admin
-    create_user("admin")
+  def login_as(role)
+    create_user(role)
     visit root_path
     click_on "Login"
     expect(page).to have_text("Logged in!")
@@ -39,7 +24,7 @@ end
 
 module CategoryHelpers
   def create_category(category_name, category_description)
-    login_as_admin
+    login_as("admin")
     find_button "New Category"
     click_on "New Category"
     find_button "Submit"
