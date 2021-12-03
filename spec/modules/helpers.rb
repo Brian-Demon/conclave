@@ -1,3 +1,6 @@
+require 'rspec/expectations'
+require_relative "../matchers/category_matchers"
+
 module SessionHelpers
   def create_user(role)
     User.create(
@@ -31,17 +34,11 @@ module CategoryHelpers
     fill_in("Name", with: category_name)
     fill_in("Description", with: category_description)
     click_on "Submit"
-    should_be_on_categories_page(category_name, category_description)
-  end
-
-  def should_be_on_categories_page(category_name, category_description, action = "created")
-    expect(page).to have_text("Category was successfully #{action}.")
-    expect(page).to have_text("Categories > #{category_name}")
-    expect(page).to have_text(category_name)
-    expect(page).to have_text(category_description)
-    find_button "Edit"
-    find_button "Create Discussion"
-    expect(page).to have_text("DISCUSSION REPLIES LAST POST")
+    expect(page).to have_correct_category_name_on_page(category_name)
+    expect(page).to have_correct_category_description_on_page(category_description)
+    expect(page).to have_correct_message_for_action("created")
+    expect(page).to have_expected_buttons
+    expect(page).to have_the_expected_category_header("DISCUSSION REPLIES LAST POST")
   end
 
   def edit_category(updated_name = "New Title", updated_description = "New Description", category_id)
