@@ -28,4 +28,5 @@ jobs:
     - name: Run Tests
       run: rails test
     - name: Run Specs
+      run: docker-compose up -d
       run: bundle exec rspec
