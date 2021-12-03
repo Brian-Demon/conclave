@@ -27,3 +27,5 @@ jobs:
         yarn --frozen-lockfile
     - name: Run Tests
       run: rails test
+    - name: Run Specs
+      run: bundle exec rspec
