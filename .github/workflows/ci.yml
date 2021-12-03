@@ -27,6 +27,8 @@ jobs:
         yarn --frozen-lockfile
     - name: Run Tests
       run: rails test
+    - name: Setup chrome driver (for Selenium)
+      uses: nanasess/setup-chromedriver@master
     - name: Spool up Docker to run system specs
       run: docker-compose up -d
     - name: Run Specs
