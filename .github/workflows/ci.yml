@@ -27,6 +27,7 @@ jobs:
         yarn --frozen-lockfile
     - name: Run Tests
       run: rails test
-    - name: Run Specs
+    - name: Spool up Docker to run system specs
       run: docker-compose up -d
+    - name: Run Specs
       run: bundle exec rspec
