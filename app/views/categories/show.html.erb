@@ -4,7 +4,7 @@
   <%= page_link_tree(@category, @discussion) %>
 </h1>
 
-<div class="grid grid-cols-6 border rounded m-4 p-4">
+<div class="grid grid-cols-6 border rounded m-4 p-4" id="category_<%= @category.id %>">
   <div class="col-span-5">
     <h1 class="text-xl font-bold">
       <%= link_to(
