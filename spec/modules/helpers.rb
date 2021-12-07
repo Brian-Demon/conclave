@@ -51,7 +51,11 @@ module CategoryHelpers
     fill_in("Name", with: updated_name)
     fill_in("Description", with: updated_description)
     click_on "Submit"
-    should_be_on_categories_page(updated_name, updated_description, "updated")
+    expect(page).to have_correct_category_name_on_page(updated_name)
+    expect(page).to have_correct_category_description_on_page(updated_description)
+    expect(page).to have_correct_message_for_action("updated")
+    expect(page).to have_expected_buttons
+    expect(page).to have_the_expected_category_header("DISCUSSION REPLIES LAST POST")
   end
 
   def delete_category(category_name, category_description)
