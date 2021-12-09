@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1 class="text-xl font-bold">
+<h1 class="text-xl font-bold" id="link-tree">
   <%= page_link_tree(@category, @discussion) %>
 </h1>
 
@@ -46,8 +46,8 @@
   </thead>
   <tbody class="text-gray-700">
     <% @discussions.each_with_index do |discussion, index| %>
-      <tr class="<%= index % 2 == 0 ? "bg-gray-200" : "big-white" %>">
-        <td class="text-left">
+      <tr class="<%= index % 2 == 0 ? "bg-gray-200" : "big-white" %>" id="discussion-<%= discussion.id %>">
+        <td class="text-left" id="discussion-<%= discussion.id %>-link">
           <div class="flex">
             <h1 class="text-lg font-bold pl-2">
               <%= link_to(
@@ -67,7 +67,7 @@
               </h1>
             <% end %>
           </div>
-          <div class="flex pl-4">
+          <div class="flex pl-4" id="discussion-<%= discussion.id %>-info">
             by
             <h1 class="pl-1 pr-1 font-bold text-yellow-700">
               <%= discussion.user.login %>
@@ -78,14 +78,14 @@
             </h1>
           </div>
         </td>
-        <td class="text-center">
+        <td class="text-center" id="discussion-<%= discussion.id %>-replies">
           <div class="flex justify-center">
             <div class="w-16 border rounded bg-gray-400 text-white font-bold">
               <%= discussion.comments.count %>
             </div>
           </div>
         </td>
-        <td class="text-center">
+        <td class="text-center" id="discussion-<%= discussion.id %>-last-post">
           <% if discussion.comments.count > 0 %>
             <div class="flex justify-center">
               Last post by
