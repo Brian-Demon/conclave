@@ -80,7 +80,7 @@
         </td>
         <td class="text-center" id="discussion-<%= discussion.id %>-replies">
           <div class="flex justify-center">
-            <div class="w-16 border rounded bg-gray-400 text-white font-bold">
+            <div class="w-16 border rounded bg-gray-400 text-white font-bold reply-counter">
               <%= discussion.comments.count %>
             </div>
           </div>
@@ -89,11 +89,11 @@
           <% if discussion.comments.count > 0 %>
             <div class="flex justify-center">
               Last post by
-              <h1 class="pl-1 font-bold text-yellow-700">
+              <h1 class="pl-1 font-bold text-yellow-700 user-login">
                 <%= discussion.comments.last.user.login %>
               </h1>
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center created-at">
               <h1 class="text-xs text-gray-500">
                 <%= discussion.comments.last.created_at.strftime("%m/%d/%Y %I:%M%p") %>
               </h1>

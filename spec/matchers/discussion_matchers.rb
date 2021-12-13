@@ -31,16 +31,24 @@ module DiscussionMatchers
     end
   end
 
-  matcher :have_expected_discussion_buttons do
+  matcher :have_expected_discussion_moderator_buttons do
     match do
       find_button "Ban"
       find_button "Pin"
       find_button "Lock"
+    end
+    failure_message do
+      "expected that the moderator buttons exist on the page."
+    end
+  end
+
+  matcher :have_expected_discussion_buttons do
+    match do
       find_button "Edit"
       find_button "Delete"
     end
     failure_message do
-      "expected that the buttons `Edit` and `Create Discussion` exist on the page."
+      "expected that the default normal user buttons exist on the page."
     end
   end
 
@@ -54,43 +62,10 @@ module DiscussionMatchers
     end
   end
 
-  matcher :have_correct_user_info do
+  matcher :have_correct_user_info do |discussion|
     match do |actual|
-      expect(actual).to have_text("Test Person")
-      expect(actual).to have_text("Posts: 1")
-      find_button "Ban"
-    end
-  end
-
-  matcher :have_correct_discussion_info do |discussion|
-    discussion_info = "by\n#{discussion.user.login}\non\n#{discussion.created_at.strftime("%m/%d/%Y %I:%M%p")}"
-    match do |actual|
-      expect(actual).to have_text(discussion_info)
-    end
-    failure_message do |actual|
-      "expected that the discussion info within discussion table to be '#{discussion_info}' for the categories table is on the page."
-    end
-  end
-
-  matcher :have_correct_last_post_info do |discussion|
-    last_poster = "Last post by #{discussion.user.login}"
-    last_post_timestamp = discussion.created_at.strftime("%m/%d/%Y %I:%M%p")
-    match do |actual|
-      expect(actual).to have_text(last_poster)
-      expect(actual).to have_text(last_post_timestamp)
-    end
-    failure_message do |actual|
-      "expected that the discussion info within Last Post to be '#{last_poster}' & '#{last_post_timestamp}' is on the page."
-    end
-  end
-
-  matcher :have_correct_reply_info do |discussion|
-    number_of_replies = discussion.comments.count
-    match do |actual|
-      expect(actual).to have_text(number_of_replies)
-    end
-    failure_message do |actual|
-      "expected that the number of replies (comments) for the discussion equals '#{number_of_replies}' is on the page."
+      expect(actual).to have_text(discussion.user.login)
+      expect(actual).to have_text("Posts: #{discussion.user.post_count}")
     end
   end
 end
