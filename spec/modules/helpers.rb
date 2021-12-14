@@ -5,8 +5,6 @@ require_relative "../matchers/shared_matchers"
 
 DEFAULT_CATEGORY_NAME = "Test Category Name"
 CATEGORY_DESCRIPTION = "Test category description"
-DISCUSSION_TITLE = "Test Discussion Title"
-DISCUSSION_BODY = "Test discussion body"
 
 module SessionHelpers
   def create_user(role)
