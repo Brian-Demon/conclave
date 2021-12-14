@@ -87,8 +87,8 @@ module DiscussionHelpers
   include SharedMatchers
   include DiscussionMatchers
 
-  def create_discussion(discussion_title, discussion_body)
-    visit category_path(Category.create(name: DEFAULT_CATEGORY_NAME, position: 1, description: CATEGORY_DESCRIPTION))
+  def create_discussion(discussion_title, discussion_body, category)
+    visit category_path(category)
 
     find_button "Create Discussion"
     click_on "Create Discussion"

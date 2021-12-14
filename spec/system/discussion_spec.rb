@@ -20,7 +20,7 @@ RSpec.describe "Discussion,", type: :system do
     let(:discussion_body) { "Test discussion body" }
 
     it "can be created" do
-      create_discussion(discussion_title, discussion_body)
+      create_discussion(discussion_title, discussion_body, Category.create(name: category_name, position: 1, description: CATEGORY_DESCRIPTION))
       discussion = Discussion.find_by(title: discussion_title, body: discussion_body)
 
       expect(page).to have_link_tree(category_name, discussion_title)
@@ -53,8 +53,11 @@ RSpec.describe "Discussion,", type: :system do
       updated_title = "New Title"
       updated_body = "New Body"
 
-      create_discussion(discussion_title, discussion_body)
-      discussion = Discussion.find_by(title: discussion_title, body: discussion_body)
+      # create_discussion(discussion_title, discussion_body)
+      category = Category.create(name: category_name, position: 1, description: CATEGORY_DESCRIPTION)
+      user = User.last
+      discussion = Discussion.create(category: category, user: user, title: discussion_title, body: discussion_body)
+      visit category_discussion_path(category, discussion)
 
       edit_discussion(updated_title, updated_body)
 
@@ -71,8 +74,11 @@ RSpec.describe "Discussion,", type: :system do
     end
 
     it "can be deleted" do
-      create_discussion(discussion_title, discussion_body)
-      discussion = Discussion.find_by(title: discussion_title, body: discussion_body)
+      category = Category.create(name: category_name, position: 1, description: CATEGORY_DESCRIPTION)
+      user = User.last
+      discussion = Discussion.create(category: category, user: user, title: discussion_title, body: discussion_body)
+      
+      visit category_discussion_path(category, discussion)
 
       delete_discussion
 
