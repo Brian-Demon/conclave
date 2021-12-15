@@ -24,7 +24,7 @@ RSpec.describe "Discussion,", type: :system do
     let(:discussion) { Discussion.create_or_find_by(category: category, user: user, title: discussion_title, body: discussion_body) }
 
     it "can be created" do
-      create_discussion(discussion_title, discussion_body, Category.create(name: category_name, position: 1, description: CATEGORY_DESCRIPTION))
+      create_discussion(discussion_title, discussion_body, Category.create(name: category_name, position: 1, description: category_description))
       discussion = Discussion.find_by(title: discussion_title, body: discussion_body)
 
       expect(page).to have_link_tree(category_name, discussion_title)
