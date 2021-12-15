@@ -21,11 +21,11 @@ RSpec.describe "Discussion,", type: :system do
     let(:discussion_body) { "Test discussion body" }
     let(:user) { User.last }
     let(:category) { Category.create(name: category_name, position: 1, description: category_description) }
-    let(:discussion) { Discussion.create(category: category, user: user, title: discussion_title, body: discussion_body) }
+    let(:discussion) { Discussion.create_or_find_by(category: category, user: user, title: discussion_title, body: discussion_body) }
 
     it "can be created" do
       create_discussion(discussion_title, discussion_body, Category.create(name: category_name, position: 1, description: CATEGORY_DESCRIPTION))
-      # discussion = Discussion.find_by(title: discussion_title, body: discussion_body)
+      discussion = Discussion.find_by(title: discussion_title, body: discussion_body)
 
       expect(page).to have_link_tree(category_name, discussion_title)
       expect(page).to have_correct_discussion_title_on_page(discussion_title)
@@ -35,7 +35,7 @@ RSpec.describe "Discussion,", type: :system do
         expect(page).to have_write_comment_section
       end
       within "#user-info" do
-        # expect(page).to have_correct_user_info(discussion)
+        expect(page).to have_correct_user_info(discussion)
       end
       within "#link-tree" do
         click_link category_name
@@ -57,7 +57,6 @@ RSpec.describe "Discussion,", type: :system do
       updated_title = "New Title"
       updated_body = "New Body"
 
-      # discussion = Discussion.create(category: category, user: user, title: discussion_title, body: discussion_body)
       visit category_discussion_path(category, discussion)
 
       edit_discussion(updated_title, updated_body)
@@ -75,7 +74,6 @@ RSpec.describe "Discussion,", type: :system do
     end
 
     it "can be deleted" do
-      # discussion = Discussion.create(category: category, user: user, title: discussion_title, body: discussion_body)
       
       visit category_discussion_path(category, discussion)
 
@@ -84,5 +82,11 @@ RSpec.describe "Discussion,", type: :system do
       expect(page).to have_text("Discussion was successfully deleted.")
       expect(page).to_not have_selector("#discussion_#{discussion.id}")
     end
+  end
+
+  after do
+    User.destroy_all
+    Category.destroy_all
+    Discussion.destroy_all
   end
 end
