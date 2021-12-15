@@ -1,6 +1,6 @@
 require "rspec/expectations"
 
-module CategoryHelpers
+module CategoryMatchers
   extend RSpec::Matchers::DSL
 
   matcher :have_correct_category_name_on_page do |category_name|

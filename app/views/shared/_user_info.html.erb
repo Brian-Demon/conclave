@@ -1,4 +1,4 @@
-<div class="border-r-2 mx-4 border-gray-500">
+<div class="border-r-2 mx-4 border-gray-500" id="user-info">
   <div><%= user_avatar(postable.user, width: 64) %></div>
   <div><%= postable.user.login %></div>
   <div>Posts: <%= postable.user.post_count %></div>
@@ -12,7 +12,7 @@
       )%>
     <% end %>
   <% else %>
-    <% if can? :unban, postable.user %> 
+    <% if can? :unban, postable.user %>
       <%= button_to("Unban",
         role_path(postable.user, user: { auth_role: "user" }),
         method: :patch,

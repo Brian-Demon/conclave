@@ -1,5 +1,10 @@
 require 'rspec/expectations'
 require_relative "../matchers/category_matchers"
+require_relative "../matchers/discussion_matchers"
+require_relative "../matchers/shared_matchers"
+
+DEFAULT_CATEGORY_NAME = "Test Category Name"
+CATEGORY_DESCRIPTION = "Test category description"
 
 module SessionHelpers
   def create_user(role)
@@ -26,7 +31,10 @@ module SessionHelpers
 end
 
 module CategoryHelpers
-  def create_category(category_name, category_description)
+  include SharedMatchers
+  include CategoryMatchers
+
+  def create_category(category_name = DEFAULT_CATEGORY_NAME, category_description)
     login_as("admin")
     find_button "New Category"
     click_on "New Category"
@@ -34,6 +42,7 @@ module CategoryHelpers
     fill_in("Name", with: category_name)
     fill_in("Description", with: category_description)
     click_on "Submit"
+    expect(page).to have_link_tree(category_name, "")
     expect(page).to have_correct_category_name_on_page(category_name)
     expect(page).to have_correct_category_description_on_page(category_description)
     expect(page).to have_correct_message_for_action("created")
@@ -51,6 +60,7 @@ module CategoryHelpers
     fill_in("Name", with: updated_name)
     fill_in("Description", with: updated_description)
     click_on "Submit"
+    expect(page).to have_link_tree(updated_name, "")
     expect(page).to have_correct_category_name_on_page(updated_name)
     expect(page).to have_correct_category_description_on_page(updated_description)
     expect(page).to have_correct_message_for_action("updated")
@@ -70,5 +80,37 @@ module CategoryHelpers
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_text("Category was successfully destroyed.")
     expect(page).not_to have_selector("#category_#{category_id}")
+  end
+end
+
+module DiscussionHelpers
+  include SharedMatchers
+  include DiscussionMatchers
+
+  def create_discussion(discussion_title, discussion_body, category)
+    visit category_path(category)
+
+    find_button "Create Discussion"
+    click_on "Create Discussion"
+    find_button "Submit"
+    fill_in("Title", with: discussion_title)
+    fill_in("Body", with: discussion_body)
+    click_on "Submit"
+  end
+
+  def edit_discussion(updated_title = "New Title", updated_body = "New Body")
+    within "#discussion-title-buttons" do
+      click_on "Edit"
+    end
+    fill_in("Title", with: updated_title)
+    fill_in("Body", with: updated_body)
+    click_on "Submit"
+  end
+
+  def delete_discussion
+    within "#discussion-title-buttons" do
+      click_on "Delete"
+    end
+    page.driver.browser.switch_to.alert.accept
   end
 end

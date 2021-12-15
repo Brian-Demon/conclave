@@ -19,7 +19,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-span-2 flex justify-end">
+      <div class="col-span-2 flex justify-end" id="discussion-title-buttons">
         <div>
           <% if postable.respond_to?(:pinned) && !postable.pinned %>
             <% if can? :pin, postable %>
