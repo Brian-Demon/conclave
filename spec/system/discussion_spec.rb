@@ -10,6 +10,12 @@ RSpec.describe "Discussion,", type: :system do
   include CategoryHelpers
   include DiscussionHelpers
 
+  after do
+    User.destroy_all
+    Category.destroy_all
+    Discussion.destroy_all
+  end
+  
   context "when logged in as admin," do
     before(:each) do
       login_as("admin")
@@ -82,11 +88,5 @@ RSpec.describe "Discussion,", type: :system do
       expect(page).to have_text("Discussion was successfully deleted.")
       expect(page).to_not have_selector("#discussion_#{discussion.id}")
     end
-  end
-
-  after do
-    User.destroy_all
-    Category.destroy_all
-    Discussion.destroy_all
   end
 end
