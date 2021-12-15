@@ -67,5 +67,8 @@ module DiscussionMatchers
       expect(actual).to have_text(discussion.user.login)
       expect(actual).to have_text("Posts: #{discussion.user.post_count}")
     end
+    failure_message do
+      "Discussion Count: #{Discussion.count}, Discussion First: #{Discussion.first.title}, Discussion Last: #{Discussion.last.title}"
+    end
   end
 end
