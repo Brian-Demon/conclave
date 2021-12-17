@@ -1,13 +1,11 @@
 require "rails_helper"
 require_relative "../modules/helpers"
-require_relative "../matchers/category_matchers"
-require_relative "../matchers/discussion_matchers"
 require_relative "../matchers/shared_matchers"
+require_relative "../matchers/discussion_matchers"
 
 RSpec.describe "Discussion,", type: :system do
   include SharedMatchers
   include SessionHelpers
-  include CategoryHelpers
   include DiscussionHelpers
 
   after do
@@ -15,19 +13,19 @@ RSpec.describe "Discussion,", type: :system do
     Category.destroy_all
     Discussion.destroy_all
   end
-  
+
+  let(:category_name) { "Test Category Name" }
+  let(:category_description) { "Test category description" }
+  let(:discussion_title) { "Test Discussion Title" }
+  let(:discussion_body) { "Test discussion body" }
+  let(:user) { User.last }
+  let(:category) { Category.create(name: category_name, position: 1, description: category_description) }
+  let(:discussion) { Discussion.create_or_find_by(category: category, user: user, title: discussion_title, body: discussion_body) }
+
   context "when logged in as admin," do
     before(:each) do
       login_as("admin")
     end
-
-    let(:category_name) { "Test Category Name" }
-    let(:category_description) { "Test category description" }
-    let(:discussion_title) { "Test Discussion Title" }
-    let(:discussion_body) { "Test discussion body" }
-    let(:user) { User.last }
-    let(:category) { Category.create(name: category_name, position: 1, description: category_description) }
-    let(:discussion) { Discussion.create_or_find_by(category: category, user: user, title: discussion_title, body: discussion_body) }
 
     it "can be created" do
       create_discussion(discussion_title, discussion_body, Category.create(name: category_name, position: 1, description: category_description))
@@ -46,7 +44,6 @@ RSpec.describe "Discussion,", type: :system do
       within "#link-tree" do
         click_link category_name
       end
-      expect(page).to have_the_expected_category_header("DISCUSSION REPLIES LAST POST")
       within "#discussion-#{discussion.id}" do
         find_by_id("discussion-#{discussion.id}-link")
       end
@@ -65,7 +62,7 @@ RSpec.describe "Discussion,", type: :system do
 
       visit category_discussion_path(category, discussion)
 
-      edit_discussion(updated_title, updated_body)
+      edit_discussion(discussion, updated_title, updated_body)
 
       expect(page).to have_link_tree(category_name, updated_title)
       expect(page).to have_correct_discussion_title_on_page(updated_title)
@@ -80,10 +77,9 @@ RSpec.describe "Discussion,", type: :system do
     end
 
     it "can be deleted" do
-      
       visit category_discussion_path(category, discussion)
 
-      delete_discussion
+      delete_discussion(discussion)
 
       expect(page).to have_text("Discussion was successfully deleted.")
       expect(page).to_not have_selector("#discussion_#{discussion.id}")
