@@ -1,7 +1,8 @@
 require 'rspec/expectations'
+require_relative "../matchers/shared_matchers"
 require_relative "../matchers/category_matchers"
 require_relative "../matchers/discussion_matchers"
-require_relative "../matchers/shared_matchers"
+require_relative "../matchers/comment_matchers"
 
 DEFAULT_CATEGORY_NAME = "Test Category Name"
 CATEGORY_DESCRIPTION = "Test category description"
@@ -98,8 +99,8 @@ module DiscussionHelpers
     click_on "Submit"
   end
 
-  def edit_discussion(updated_title = "New Title", updated_body = "New Body")
-    within "#discussion-title-buttons" do
+  def edit_discussion(discussion, updated_title = "New Title", updated_body = "New Body")
+    within "#discussion-#{discussion.id}-buttons" do
       click_on "Edit"
     end
     fill_in("Title", with: updated_title)
@@ -107,8 +108,39 @@ module DiscussionHelpers
     click_on "Submit"
   end
 
-  def delete_discussion
-    within "#discussion-title-buttons" do
+  def delete_discussion(discussion)
+    within "#discussion-#{discussion.id}-buttons" do
+      click_on "Delete"
+    end
+    page.driver.browser.switch_to.alert.accept
+  end
+end
+
+module CommentHelpers
+  include SharedMatchers
+  include CommentMatchers
+
+  def create_comment(comment_body, category, discussion)
+    visit category_discussion_path(category, discussion)
+
+    within "#comment-section" do
+      fill_in("Body", with: comment_body)
+      click_on "Submit"
+    end
+
+    expect(page).to have_text("Comment posted!")
+  end
+
+  def edit_comment(comment, updated_body = "New Body")
+    within "#comment-#{comment.id}-buttons" do
+      click_on("Edit")
+    end
+    fill_in("Body", with: updated_body)
+    click_on "Submit"
+  end
+
+  def delete_comment(comment)
+    within "#comment-#{comment.id}-buttons" do
       click_on "Delete"
     end
     page.driver.browser.switch_to.alert.accept

@@ -1,8 +1,8 @@
-<div class="grid grid-cols-6 border rounded m-4 p-4 border-gray-500">
+<div class="grid grid-cols-6 border rounded m-4 p-4 border-gray-500" id="<%= postable.class.to_s.downcase %>-<%= postable.id %>">
   <%= render "shared/user_info", postable: postable %>
   <div class="col-span-5">
     <div class="grid grid-cols-6 content-center items-center border-b-2 justify-end"> 
-      <div class="col-span-4 mx-1 justify-self-start">
+      <div class="col-span-4 mx-1 justify-self-start" id="<%= postable.class.to_s.downcase %>-<%= postable.id %>-posted-info">
         <div class="flex">
           <h1 class="text-gray-500">
             Posted on <%= postable.created_at.strftime("%m/%d/%Y %I:%M%p") %>
@@ -19,7 +19,7 @@
           <% end %>
         </div>
       </div>
-      <div class="col-span-2 flex justify-end" id="discussion-title-buttons">
+      <div class="col-span-2 flex justify-end" id="<%= postable.class.to_s.downcase %>-<%= postable.id %>-buttons">
         <div>
           <% if postable.respond_to?(:pinned) && !postable.pinned %>
             <% if can? :pin, postable %>
@@ -82,6 +82,8 @@
         </div>
       </div>
     </div>
-    <%= postable.formatted_body.html_safe %>
+    <div id="<%= postable.class.to_s.downcase %>-<%= postable.id %>-body">
+      <%= postable.formatted_body.html_safe %>
+    </div>
   </div>
 </div>
