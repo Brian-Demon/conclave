@@ -115,3 +115,34 @@ module DiscussionHelpers
     page.driver.browser.switch_to.alert.accept
   end
 end
+
+module CommentHelpers
+  include SharedMatchers
+  include CommentMatchers
+
+  def create_comment(comment_body, category, discussion)
+    visit category_discussion_path(category, discussion)
+
+    within "#comment-section" do
+      fill_in("Body", with: comment_body)
+      click_on "Submit"
+    end
+
+    expect(page).to have_text("Comment posted!")
+  end
+
+  def edit_comment(comment, updated_body = "New Body")
+    within "#comment-#{comment.id}-buttons" do
+      click_on("Edit")
+    end
+    fill_in("Body", with: updated_body)
+    click_on "Submit"
+  end
+
+  def delete_comment(comment)
+    within "#comment-#{comment.id}-buttons" do
+      click_on "Delete"
+    end
+    page.driver.browser.switch_to.alert.accept
+  end
+end

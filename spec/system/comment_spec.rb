@@ -15,32 +15,31 @@ RSpec.describe "Comment,", type: :system do
     Comment.destroy_all
   end
 
+  let(:category_name) { "Test Category Name" }
+  let(:category_description) { "Test category description" }
+  let(:discussion_title) { "Test Discussion Title" }
+  let(:discussion_body) { "Test discussion body" }
+  let(:comment_body) { "Test Comment Body" }
+  let(:user) { User.last }
+  let(:category) { Category.create(name: category_name, position: 1, description: category_description) }
+  let(:discussion) { Discussion.create_or_find_by(category: category, user: user, title: discussion_title, body: discussion_body) }
+  let(:comment) { Comment.create_or_find_by(user: user, discussion: discussion, body: comment_body) }
+
   context "when logged in as admin" do
     before(:each) do
       login_as("admin")
     end
 
-    let(:category_name) { "Test Category Name" }
-    let(:category_description) { "Test category description" }
-    let(:discussion_title) { "Test Discussion Title" }
-    let(:discussion_body) { "Test discussion body" }
-    let(:comment_body) { "Test Comment Body" }
-    let(:user) { User.last }
-    let(:category) { Category.create(name: category_name, position: 1, description: category_description) }
-    let(:discussion) { Discussion.create_or_find_by(category: category, user: user, title: discussion_title, body: discussion_body) }
-    let(:comment) { Comment.create_or_find_by(user: user, discussion: discussion, body: comment_body) }
-
     it "can be created" do
       create_comment(comment_body, category, discussion)
-      comment = Comment.find_by(body: comment_body)
+      expect(comment).not_to be_nil
 
       expect(page).to have_correct_comment_info(comment)
     end
 
     it "can be edited" do
       updated_body = "New Body"
-      # comment = Comment.create_or_find_by(user: user, discussion: discussion, body: comment_body)
-
+      expect(comment).not_to be_nil
       visit category_discussion_path(category, discussion)
 
       edit_comment(comment, updated_body)
@@ -52,7 +51,7 @@ RSpec.describe "Comment,", type: :system do
     end
 
     it "can be deleted" do
-      # comment = Comment.create_or_find_by(user: user, discussion: discussion, body: comment_body)
+      expect(comment).not_to be_nil
       visit category_discussion_path(category, discussion)
       
       delete_comment(comment)
