@@ -159,6 +159,5 @@ module UserRolesHelpers
     within "#user-#{user.id}" do
       select(new_role, from: "user_auth_role")
     end
-    user.reload
   end
 end

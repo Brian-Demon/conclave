@@ -20,12 +20,12 @@ RSpec.describe "User Roles,", type: :system do
 
     ROLES.each do |role|
       it "should be able to change the role of a user to #{role}" do
-        user
+        expect(user).to_not be_nil
         click_on_user_roles_header_button
 
         if user.auth_role != role
           select_auth_role_for(user, role.capitalize)
-          
+          user.reload
           expect(page).to have_text("User role updated successfully")
           within "#user-#{user.id} #user_auth_role" do
             expect(page).to have_text(role.capitalize )
