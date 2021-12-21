@@ -1,7 +1,7 @@
 <div class="container container-lg mx-auto">
   <h1 class="text-xl py-4">User Roles Page</h1>
   <p id="notice"><%= notice %></p>
-  <table class="w-full table-auto">
+  <table class="w-full table-auto" id="user-roles-table">
     <thead class="bg-gray-700 text-white">
       <tr> 
         <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Login</th>
@@ -10,7 +10,7 @@
     </thead>
     <tbody class="text-gray-700">
       <% @users.each_with_index do |user, index| %>
-        <tr class="<%= index % 2 == 0 ? "bg-gray-200" : "big-white" %>">
+        <tr class="<%= index % 2 == 0 ? "bg-gray-200" : "big-white" %>" id="user-<%= user.id %>">
           <td class="text-left py-3 px-4"><%= user.login %></td>
           <td class="text-left py-3 px-4">
           <%= simple_form_for(user, url: role_path(user)) do |form| %>

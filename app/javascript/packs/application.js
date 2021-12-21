@@ -61,4 +61,11 @@ docReady(function() {
       document.getElementById("comment-preview-toggle").classList.remove("active");
     });
   }
+
+  let roleDropdown = document.getElementsByClassName("role-dropdown");
+  for(var i = 0, len=roleDropdown.length; i < len; i=i+1|0) {
+    roleDropdown[i].addEventListener("change", (event) => {
+      event.target.parentElement.submit();
+    });
+  }
 });

@@ -146,3 +146,19 @@ module CommentHelpers
     page.driver.browser.switch_to.alert.accept
   end
 end
+
+module UserRolesHelpers
+  def click_on_user_roles_header_button
+    within "#header-buttons" do
+      click_on "User Roles"
+    end
+    expect(page).to have_text("User Roles Page")
+  end
+
+  def select_auth_role_for(user, new_role = user.auth_role)
+    within "#user-#{user.id}" do
+      select(new_role, from: "user_auth_role")
+    end
+    user.reload
+  end
+end
